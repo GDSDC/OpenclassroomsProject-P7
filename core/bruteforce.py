@@ -10,6 +10,7 @@ ACTION_PURCHASE_LIMIT = 1
 ACTION_MINIMUM_FRACTION = 1
 MAXIMUM_PURCHASE_COST = 500
 
+
 # Functions
 def get_csv_data(data_csv):
     """Function to get data from CSV file"""
@@ -92,5 +93,29 @@ def get_best_portfolio(data_csv):
     # Overall Complexity = O(n) + 2 * O(2^n) + O(n*log(n)) + O(1) => O(2^n)
 
 
+# Display functions
+def display_portfolio(portfolio):
+    """Function that display nicely portfolio content"""
+
+    for action in portfolio:
+        action_display = display_action(action)
+
+        print(action_display)
+
+
+def display_action(action):
+    """Function that display 3 elements in columns"""
+    action_name, action_cost, action_benefit_percentage = action
+    name_space = 20
+    cost_space = 10
+    benefit_space = 10
+
+    display = f'{action_name}{" " * (name_space - len(str(action_name)))}|' + \
+              f'{action_cost}'.center(cost_space - len(str(action_cost))) + '|' + \
+              f'{action_benefit_percentage} %'.center(benefit_space - len(str(action_benefit_percentage))) + '|'
+
+    return display
+
+
 if __name__ == '__main__':
-    print(get_best_portfolio(ACTIONS_DATA_CSV))
+    display_portfolio(get_best_portfolio(ACTIONS_DATA_CSV))
