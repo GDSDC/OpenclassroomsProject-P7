@@ -1,2 +1,2 @@
 pytest
--U memory_profiler
+memory_profiler
