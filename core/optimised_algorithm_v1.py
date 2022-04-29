@@ -152,4 +152,4 @@ def display_action(action):
 
 if __name__ == '__main__':
     print('Voici le meilleur portefeuille d\'investissement !')
-    display_portfolio(get_best_portfolio(ACTIONS_DATA_CSV))
+    display_portfolio(sorted(get_best_portfolio(ACTIONS_DATA_CSV),key=lambda x:x[1]))
