@@ -1,0 +1,2 @@
+pytest
+-U memory_profiler
