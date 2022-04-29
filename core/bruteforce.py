@@ -97,6 +97,8 @@ def get_best_portfolio(data_csv):
 def display_portfolio(portfolio):
     """Function that display nicely portfolio content"""
 
+    print(display_action(['Nom de l\'Action','Coût','Bénéfice']))
+
     for action in portfolio:
         action_display = display_action(action)
 
@@ -108,14 +110,15 @@ def display_action(action):
     action_name, action_cost, action_benefit_percentage = action
     name_space = 20
     cost_space = 10
-    benefit_space = 10
+    benefit_space = 20
 
-    display = f'{action_name}{" " * (name_space - len(str(action_name)))}|' + \
-              f'{action_cost}'.center(cost_space - len(str(action_cost))) + '|' + \
-              f'{action_benefit_percentage} %'.center(benefit_space - len(str(action_benefit_percentage))) + '|'
+    display = f'{action_name}'.center(name_space) + '|' + \
+              f'{action_cost}'.center(cost_space) + '|' + \
+              f'{action_benefit_percentage} %'.center(benefit_space) + '|'
 
     return display
 
 
 if __name__ == '__main__':
+    print('Voici le meilleur portefeuille d\'investissement !')
     display_portfolio(get_best_portfolio(ACTIONS_DATA_CSV))
