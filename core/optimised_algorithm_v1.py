@@ -128,6 +128,13 @@ def display_portfolio(portfolio):
 
         print(action_display)
 
+    print(f'Nombre d\'actions en portefeuille : {len(portfolio)}')
+    print(f'Coût total du portefeuille : {get_portfolio_cost(portfolio)}')
+    print(f'Valeur du portefeuille au bout de 2 ans :'
+          f' {round(get_portfolio_cost(portfolio) + get_portfolio_benefit(portfolio),2)}')
+    print(f'Valeur du bénéfice : {round(get_portfolio_benefit(portfolio),2)}')
+    print(f'Bénéfice en pourcentage : {round(get_portfolio_benefit(portfolio)/get_portfolio_cost(portfolio)*100,2)} %')
+
 
 def display_action(action):
     """Function that display 3 elements in columns"""
