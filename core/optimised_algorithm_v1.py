@@ -1,7 +1,7 @@
 # Imports
 import csv
-# from time import time
-# import tracemalloc
+from time import time
+import tracemalloc
 # from memory_profiler import profile
 
 # CONSTANTS
@@ -13,33 +13,33 @@ ACTION_MINIMUM_FRACTION = 1
 MAXIMUM_PURCHASE_COST = 500
 
 
-# # Timing Decorator
-# def timer_func(func):
-#     # This function shows the execution time of
-#     # the function object passed
-#     def wrap_func(*args, **kwargs):
-#         t1 = time()
-#         result = func(*args, **kwargs)
-#         t2 = time()
-#         print(f'Function {func.__name__!r} executed in {(t2 - t1):.4f}s')
-#         return result
-#
-#     return wrap_func
-#
-#
-# # RAM Allocation Decorator
-# def ram_func(func):
-#     def wrap_func(*args, **kwargs):
-#         tracemalloc.start()
-#         result = func(*args, **kwargs)
-#         current, peak = tracemalloc.get_traced_memory()
-#         print(
-#             f'Function {func.__name__!r} executed : '
-#             f'Current memory usage is {current / 10 ** 6}MB; Peak was {peak / 10 ** 6}MB')
-#         tracemalloc.stop()
-#         return result
-#
-#     return wrap_func
+# Timing Decorator
+def timer_func(func):
+    # This function shows the execution time of
+    # the function object passed
+    def wrap_func(*args, **kwargs):
+        t1 = time()
+        result = func(*args, **kwargs)
+        t2 = time()
+        print(f'Function {func.__name__!r} executed in {(t2 - t1):.4f}s')
+        return result
+
+    return wrap_func
+
+
+# RAM Allocation Decorator
+def ram_func(func):
+    def wrap_func(*args, **kwargs):
+        tracemalloc.start()
+        result = func(*args, **kwargs)
+        current, peak = tracemalloc.get_traced_memory()
+        print(
+            f'Function {func.__name__!r} executed : '
+            f'Current memory usage is {current / 10 ** 6}MB; Peak was {peak / 10 ** 6}MB')
+        tracemalloc.stop()
+        return result
+
+    return wrap_func
 
 # Functions
 def get_csv_data(data_csv):
