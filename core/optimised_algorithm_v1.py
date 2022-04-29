@@ -2,6 +2,7 @@
 import csv
 from time import time
 import tracemalloc
+
 # from memory_profiler import profile
 
 # CONSTANTS
@@ -41,6 +42,7 @@ def ram_func(func):
 
     return wrap_func
 
+
 # Functions
 def get_csv_data(data_csv):
     """Function to get data from CSV file"""
@@ -69,6 +71,22 @@ def get_portfolio_cost(portfolio):
     for (_, action_cost, _) in portfolio:
         portfolio_cost += action_cost
     return portfolio_cost
+
+
+def get_portfolio_benefit(portfolio):
+    """Function that returns the total benefit of a portfolio"""
+    # Init
+    portfolio_value = 0
+    portfolio_cost = get_portfolio_cost(portfolio)
+
+    # Iteration
+    for (_, action_cost, action_benefit_percentage) in portfolio:
+        portfolio_value += action_cost * (1 + action_benefit_percentage / 100)
+
+    # Getting total profit
+    portfolio_benefit_value = portfolio_value - portfolio_cost
+
+    return portfolio_benefit_value
 
 
 # Optimised algorithm v1
