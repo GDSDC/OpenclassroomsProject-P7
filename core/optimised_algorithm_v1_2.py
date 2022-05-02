@@ -106,11 +106,8 @@ def get_best_portfolio(data_csv):
 
     # Sum action until total cost <= 500 / O(n)
     best_portfolio.append(actions_data_sorted_under_max_purchase_cost[0])
+    # TODO : write the section below with destructuration so we can understand
     for i in range(1,len(actions_data_sorted_under_max_purchase_cost)):
-        # total_cost = get_portfolio_cost(best_portfolio) + get_portfolio_cost([actions_data_sorted_under_max_purchase_cost[i]])
-        # # if (total_cost > MAXIMUM_PURCHASE_COST):
-        # #     continue
-        # # else:
         if (get_portfolio_cost(best_portfolio)+ actions_data_sorted_under_max_purchase_cost[i][1]>MAXIMUM_PURCHASE_COST) and (get_portfolio_cost(best_portfolio[:-1]) + actions_data_sorted_under_max_purchase_cost[i][1]<=MAXIMUM_PURCHASE_COST):
             if best_portfolio[-1][1]*best_portfolio[-1][2] < actions_data_sorted_under_max_purchase_cost[i][1]*actions_data_sorted_under_max_purchase_cost[i][2]:
                 best_portfolio.pop()

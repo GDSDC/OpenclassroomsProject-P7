@@ -106,6 +106,7 @@ def get_best_portfolio(data_csv):
 
     # Sum action until total cost <= 500 / O(n)
     best_portfolio.append(actions_data_sorted_under_max_purchase_cost[0])
+    # TODO : write the section below with destructuration so we can understand
     for i in range(1,len(actions_data_sorted_under_max_purchase_cost)):
         must_continue = False
         for action in actions_data_sorted_under_max_purchase_cost[i:]:
