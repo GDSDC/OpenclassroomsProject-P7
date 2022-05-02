@@ -128,7 +128,11 @@ def get_best_portfolio(data_csv):
 def display_portfolio(portfolio):
     """Function that display nicely portfolio content"""
 
-    print(display_action(['Nom de l\'Action', 'Coût', 'Bénéfice']))
+    #Header
+    print('Nom de l\'Action'.center(20) + '|' + \
+          'Coût'.center(10) + '|' + \
+          'Bénéfice %'.center(20) + '|' + \
+          'Bénéfice value'.center(20) + '|')
 
     for action in portfolio:
         action_display = display_action(action)
@@ -138,9 +142,10 @@ def display_portfolio(portfolio):
     print(f'Nombre d\'actions en portefeuille : {len(portfolio)}')
     print(f'Coût total du portefeuille : {get_portfolio_cost(portfolio)}')
     print(f'Valeur du portefeuille au bout de 2 ans :'
-          f' {round(get_portfolio_cost(portfolio) + get_portfolio_benefit(portfolio),2)}')
-    print(f'Valeur du bénéfice : {round(get_portfolio_benefit(portfolio),2)}')
-    print(f'Bénéfice en pourcentage : {round(get_portfolio_benefit(portfolio)/get_portfolio_cost(portfolio)*100,2)} %')
+          f' {round(get_portfolio_cost(portfolio) + get_portfolio_benefit(portfolio), 2)}')
+    print(f'Valeur du bénéfice : {round(get_portfolio_benefit(portfolio), 2)}')
+    print(
+        f'Bénéfice en pourcentage : {round(get_portfolio_benefit(portfolio) / get_portfolio_cost(portfolio) * 100, 2)} %')
 
 
 def display_action(action):
@@ -152,8 +157,8 @@ def display_action(action):
 
     display = f'{action_name}'.center(name_space) + '|' + \
               f'{action_cost}'.center(cost_space) + '|' + \
-              f'{action_benefit_percentage} %'.center(benefit_space) + '|'
-
+              f'{action_benefit_percentage} %'.center(benefit_space) + '|' + \
+              f'{round(action_benefit_percentage * action_cost / 100, 2)}'.center(benefit_space) + '|'
     return display
 
 
