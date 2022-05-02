@@ -86,7 +86,7 @@ def get_portfolio_cost(portfolio):
     return portfolio_cost
 
 
-def get_portfolio_benefit(portfolio):
+def get_portfolio_benefit_ptc(portfolio):
     """Function that returns the total benefit of a portfolio"""
     # Init
     portfolio_value = 0
@@ -118,7 +118,7 @@ def get_best_portfolio(data_csv):
 
     # Sort them by total benefit /  O(n*log(n))
     portfolios_under_max_cost_sorted = sorted(portfolios_under_max_cost,
-                                              key=lambda x: get_portfolio_benefit(x) * get_portfolio_cost(x),
+                                              key=lambda x: get_portfolio_benefit_ptc(x) * get_portfolio_cost(x),
                                               reverse=True)
 
     # Best portfolio / O(1)
@@ -145,10 +145,10 @@ def display_portfolio(portfolio):
     print(f'Nombre d\'actions en portefeuille : {len(portfolio)}')
     print(f'Coût total du portefeuille : {get_portfolio_cost(portfolio)}')
     print(f'Valeur du portefeuille au bout de 2 ans :'
-          f' {round(get_portfolio_cost(portfolio) + get_portfolio_benefit(portfolio), 2)}')
-    print(f'Valeur du bénéfice : {round(get_portfolio_benefit(portfolio), 2)}')
+          f' {round(get_portfolio_cost(portfolio) + get_portfolio_benefit_ptc(portfolio), 2)}')
+    print(f'Valeur du bénéfice : {round(get_portfolio_benefit_ptc(portfolio), 2)}')
     print(
-        f'Bénéfice en pourcentage : {round(get_portfolio_benefit(portfolio) / get_portfolio_cost(portfolio) * 100, 2)} %')
+        f'Bénéfice en pourcentage : {round(get_portfolio_benefit_ptc(portfolio) / get_portfolio_cost(portfolio) * 100, 2)} %')
 
 
 def display_action(action):
