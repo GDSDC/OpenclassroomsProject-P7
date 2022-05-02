@@ -121,7 +121,7 @@ def get_best_portfolio(data_csv):
 def display_portfolio(portfolio):
     """Function that display nicely portfolio content"""
 
-    # print(display_action(['Nom de l\'Action', 'Coût', 'Bénéfice %', 'Bénéfice value']))
+    # Header
     print('Nom de l\'Action'.center(20) + '|' + \
           'Coût'.center(10) + '|' + \
           'Bénéfice %'.center(20) + '|' + \
