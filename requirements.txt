@@ -1,2 +1,6 @@
 pytest
+<<<<<<< HEAD
 memory_profiler
+=======
+-U memory_profiler
+>>>>>>> feature_optimised_algoritihm_v1
