@@ -1,21 +1,6 @@
 # Imports
-from itertools import combinations
-from src.main import get_portfolio_cost, get_portfolio_benefit_ptc, get_csv_data, display_portfolio,\
-    MAXIMUM_PURCHASE_COST, ACTIONS_DATA_CSV
-
-
-# Functions
-def get_all_combinations(data):
-    """Function that return a list of all combinations of input list items"""
-
-    # Init
-    comb = []
-
-    # Get all Combinations
-    for n in range(0, len(data) + 1):
-        comb.extend([list(i) for i in list(combinations(data, n)) if list(i)])
-
-    return comb
+from .algorithm_tools import get_portfolio_cost, get_portfolio_benefit_ptc, get_all_combinations, get_csv_data, \
+    display_portfolio, MAXIMUM_PURCHASE_COST
 
 
 # Bruteforce algorithm
@@ -43,5 +28,4 @@ def get_best_portfolio(data_csv):
 
 
 if __name__ == '__main__':
-    print('Voici le meilleur portefeuille d\'investissement !')
-    display_portfolio(get_best_portfolio(ACTIONS_DATA_CSV))
+    pass

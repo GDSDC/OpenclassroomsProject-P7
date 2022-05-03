@@ -1,6 +1,6 @@
 # Imports
-from src.main import get_portfolio_cost, get_portfolio_benefit_ptc, get_csv_data, display_portfolio, \
-    MAXIMUM_PURCHASE_COST, ACTIONS_DATA_CSV
+from .algorithm_tools import get_portfolio_cost, get_portfolio_benefit_ptc, get_csv_data, display_portfolio, \
+    MAXIMUM_PURCHASE_COST
 
 
 # Optimised algorithm v1
@@ -48,5 +48,4 @@ def get_best_portfolio(data_csv):
 
 
 if __name__ == '__main__':
-    print('Voici le meilleur portefeuille d\'investissement !')
-    display_portfolio(sorted(get_best_portfolio(ACTIONS_DATA_CSV), key=lambda x: x[1]))
+    pass
