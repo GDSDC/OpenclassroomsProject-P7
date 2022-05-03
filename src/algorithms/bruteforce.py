@@ -1,6 +1,6 @@
 # Imports
 from .algorithm_tools import get_portfolio_cost, get_portfolio_benefit_ptc, get_all_combinations, get_csv_data, \
-    display_portfolio, MAXIMUM_PURCHASE_COST
+    MAXIMUM_PURCHASE_COST
 
 
 # Bruteforce algorithm

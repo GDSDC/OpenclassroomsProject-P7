@@ -1,5 +1,5 @@
 # Imports
-from .algorithm_tools import get_portfolio_cost, get_csv_data, display_portfolio, MAXIMUM_PURCHASE_COST
+from .algorithm_tools import get_portfolio_cost, get_csv_data, MAXIMUM_PURCHASE_COST
 
 
 # Optimised algorithm v1
