@@ -23,6 +23,19 @@ def timer_func(func):
 
     return wrap_func
 
+# Get Timing Decorator
+def get_time_func(func):
+    # This function shows the execution time of
+    # the function object passed
+    def wrap_func(*args, **kwargs):
+        t1 = time()
+        func(*args, **kwargs)
+        t2 = time()
+        result = round(t2-t1,2)
+        return result
+
+    return wrap_func
+
 
 # RAM Allocation Decorator
 def ram_func(func):
