@@ -1,5 +1,5 @@
 # Imports
-from main import get_portfolio_cost, get_portfolio_benefit_ptc, get_csv_data, display_portfolio, \
+from src.main import get_portfolio_cost, get_portfolio_benefit_ptc, get_csv_data, display_portfolio, \
     MAXIMUM_PURCHASE_COST, ACTIONS_DATA_CSV
 
 
