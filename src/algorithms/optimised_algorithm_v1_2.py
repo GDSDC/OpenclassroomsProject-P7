@@ -1,18 +1,15 @@
 # Imports
-from .algorithm_tools import get_portfolio_cost, get_portfolio_benefit_ptc, get_csv_data, MAXIMUM_PURCHASE_COST
+from .algorithm_tools import get_portfolio_cost, MAXIMUM_PURCHASE_COST
 
 
-# Optimised algorithm v1
-def get_best_portfolio(data_csv):
+# Optimised algorithm v1_2
+def optimised_algorithm_v1_2(data):
     """Function that gets the best portfolio"""
     # Init / O(1)
     best_portfolio = []
 
-    # Get the actions data / O(n)
-    actions_data = get_csv_data(data_csv)
-
     # Sort them by descending action benefit /  O(n*log(n))
-    actions_data_sorted = sorted(actions_data, key=lambda x: x[2], reverse=True)
+    actions_data_sorted = sorted(data, key=lambda x: x[2], reverse=True)
 
     # Get actions under maximum cost /
     actions_data_sorted_under_max_purchase_cost = [action for action in actions_data_sorted if
@@ -43,7 +40,7 @@ def get_best_portfolio(data_csv):
     # Best portfolio / O(1)
     return best_portfolio
 
-    # Overall Complexity = 2 * O(n) + 2 * O(n) + O(n*log(n)) => O(n*log(n))
+    # Overall Complexity = O(n) + 2 * O(1) + O(n*log(n)) => O(n*log(n))
 
 
 if __name__ == '__main__':

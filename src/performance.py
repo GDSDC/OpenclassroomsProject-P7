@@ -1,14 +1,14 @@
 # Imports
-from algorithms.bruteforce import get_best_portfolio as bt_algo
-from algorithms.optimised_algorithm_v1 import get_best_portfolio as ov1_algo
-from algorithms.optimised_algorithm_v1_2 import get_best_portfolio as ov2_algo
-from algorithms.optimised_algorithm_v1_3 import get_best_portfolio as ov3_algo
-from algorithms.algorithm_tools import get_time_func, get_ram_peak_func
+from algorithms.bruteforce import bruteforce_algorithm as bt_algo
+from algorithms.optimised_algorithm_v1 import optimised_algorithm_v1 as ov1_algo
+from algorithms.optimised_algorithm_v1_2 import optimised_algorithm_v1_2 as ov2_algo
+from algorithms.optimised_algorithm_v1_3 import optimised_algorithm_v1_3 as ov3_algo
+from algorithms.algorithm_tools import get_csv_data,get_time_func, get_ram_peak_func
 import matplotlib.pyplot as plt
-import math
 
 # CONSTANTS
-ACTIONS_DATA = 'resources/Actions_data/Performance_data'
+ACTIONS_DATA_CSV = 'resources/Actions_data/Performance_data/data.csv'
+ACTIONS_DATA = get_csv_data(ACTIONS_DATA_CSV)
 INPUT = [5, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 23, 24]
 
 
@@ -52,7 +52,7 @@ def algorithm_time_performance_graph(algorithm, title):
 
     # Iteration
     for n in INPUT:
-        time_results_algorithm.append(get_time_func(algorithm)(ACTIONS_DATA + '/actions_data_' + str(n) + '.csv'))
+        time_results_algorithm.append(get_time_func(algorithm)(ACTIONS_DATA[:n]))
         time_results_nlogn.append(get_time_func(o_nlogn_exemple)(n))
         time_results_n2.append(get_time_func(o_n2_exemple)(n))
     # Plot algorithm performance
@@ -80,7 +80,7 @@ def algorithm_ram_peak_performance_graph(algorithm, title):
 
     # Iteration
     for n in INPUT:
-        ram_peak_results_algorithm.append(get_ram_peak_func(algorithm)(ACTIONS_DATA + '/actions_data_' + str(n) + '.csv'))
+        ram_peak_results_algorithm.append(get_ram_peak_func(algorithm)(ACTIONS_DATA[:n]))
         ram_peak_results_nlogn.append(get_ram_peak_func(o_nlogn_exemple)(n))
         ram_peak_results_n2.append(get_ram_peak_func(o_n2_exemple)(n))
     # Plot algorithm performance
