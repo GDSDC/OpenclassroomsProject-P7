@@ -1,10 +1,10 @@
 # Imports
-from algorithms.bruteforce import bruteforce_algorithm as bt_algo
-from algorithms.optimised_algorithm_v1 import optimised_algorithm_v1 as ov1_algo
-from algorithms.optimised_algorithm_v1_2 import optimised_algorithm_v1_2 as ov2_algo
-from algorithms.optimised_algorithm_v1_3 import optimised_algorithm_v1_3 as ov3_algo
-from algorithms.algorithm_tools import get_csv_data,get_time_func, get_ram_peak_func
-import matplotlib.pyplot as plt
+from src.algorithms.bruteforce import bruteforce_algorithm as bt_algo
+from src.algorithms.optimised_algorithm_v1 import optimised_algorithm_v1 as ov1_algo
+from src.algorithms.optimised_algorithm_v1_2 import optimised_algorithm_v1_2 as ov2_algo
+from src.algorithms.optimised_algorithm_v1_3 import optimised_algorithm_v1_3 as ov3_algo
+from src.algorithms.algorithm_tools import get_csv_data,get_time_func, get_ram_peak_func
+from matplotlib import pyplot as plt
 
 # CONSTANTS
 ACTIONS_DATA_CSV = 'resources/Actions_data/Performance_data/data.csv'
