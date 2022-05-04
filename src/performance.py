@@ -3,7 +3,7 @@ from src.algorithms.bruteforce import bruteforce_algorithm as bt_algo
 from src.algorithms.optimised_algorithm_v1 import optimised_algorithm_v1 as ov1_algo
 from src.algorithms.optimised_algorithm_v1_2 import optimised_algorithm_v1_2 as ov2_algo
 from src.algorithms.optimised_algorithm_v1_3 import optimised_algorithm_v1_3 as ov3_algo
-from src.algorithms.algorithm_tools import get_csv_data,get_time_func, get_ram_peak_func
+from src.algorithms.algorithm_tools import get_csv_data, get_time_func, get_ram_peak_func
 from matplotlib import pyplot as plt
 
 # CONSTANTS
@@ -42,27 +42,28 @@ def o_n2_exemple(n):
     return o_n2_exemple(n - 1) + o_n2_exemple(n - 2)
 
 
-def algorithm_time_performance_graph(algorithm, title):
+def algorithm_time_performance_graph(algorithm, title, data_size):
     """Function that return a plot with time performance of the algorithm"""
 
     # Init
     time_results_algorithm = []
     time_results_nlogn = []
     time_results_n2 = []
+    data_input = list(range(5, data_size + 1))
 
     # Iteration
-    for n in INPUT:
+    for n in data_input:
         time_results_algorithm.append(get_time_func(algorithm)(ACTIONS_DATA[:n]))
         time_results_nlogn.append(get_time_func(o_nlogn_exemple)(n))
         time_results_n2.append(get_time_func(o_n2_exemple)(n))
     # Plot algorithm performance
-    plt.plot(INPUT, time_results_algorithm)
+    plt.plot(data_input, time_results_algorithm)
 
     # Plot O(nlog(n))
-    plt.plot(INPUT, time_results_nlogn)
+    plt.plot(data_input, time_results_nlogn)
 
     # Plot O(2^n)
-    plt.plot(INPUT, time_results_n2)
+    plt.plot(data_input, time_results_n2)
 
     plt.ylabel('time')
     plt.xlabel('number of data entries')
@@ -70,27 +71,29 @@ def algorithm_time_performance_graph(algorithm, title):
     plt.legend([title, 'O(nlog(n))', 'O(2^n)'])
     plt.show()
 
-def algorithm_ram_peak_performance_graph(algorithm, title):
+
+def algorithm_ram_peak_performance_graph(algorithm, title, data_size):
     """Function that return a plot with RAM peak performance of the algorithm"""
 
     # Init
     ram_peak_results_algorithm = []
     ram_peak_results_nlogn = []
     ram_peak_results_n2 = []
+    data_input = list(range(5, data_size + 1))
 
     # Iteration
-    for n in INPUT:
+    for n in data_input:
         ram_peak_results_algorithm.append(get_ram_peak_func(algorithm)(ACTIONS_DATA[:n]))
         ram_peak_results_nlogn.append(get_ram_peak_func(o_nlogn_exemple)(n))
         ram_peak_results_n2.append(get_ram_peak_func(o_n2_exemple)(n))
     # Plot algorithm performance
-    plt.plot(INPUT, ram_peak_results_algorithm)
+    plt.plot(data_input, ram_peak_results_algorithm)
 
     # Plot O(nlog(n))
-    plt.plot(INPUT, ram_peak_results_nlogn)
+    plt.plot(data_input, ram_peak_results_nlogn)
 
     # Plot O(2^n)
-    plt.plot(INPUT, ram_peak_results_n2)
+    plt.plot(data_input, ram_peak_results_n2)
 
     plt.ylabel('RAM peak (MB)')
     plt.xlabel('number of data entries')
