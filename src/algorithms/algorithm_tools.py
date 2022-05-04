@@ -23,6 +23,7 @@ def timer_func(func):
 
     return wrap_func
 
+
 # Get Timing Decorator
 def get_time_func(func):
     # This function shows the execution time of
@@ -31,7 +32,7 @@ def get_time_func(func):
         t1 = time()
         func(*args, **kwargs)
         t2 = time()
-        result = round(t2-t1,2)
+        result = round(t2 - t1, 2)
         return result
 
     return wrap_func
@@ -46,6 +47,19 @@ def ram_func(func):
         print(
             f'Function {func.__name__!r} executed : '
             f'Current memory usage is {current / 10 ** 6}MB; Peak was {peak / 10 ** 6}MB')
+        tracemalloc.stop()
+        return result
+
+    return wrap_func
+
+
+# Get RAM peak Decorator
+def get_ram_peak_func(func):
+    def wrap_func(*args, **kwargs):
+        tracemalloc.start()
+        func(*args, **kwargs)
+        current, peak = tracemalloc.get_traced_memory()
+        result = round(peak / 10 ** 6, 2)
         tracemalloc.stop()
         return result
 
