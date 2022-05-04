@@ -165,5 +165,16 @@ def display_action(action):
     return display
 
 
+def display_best_portfolio(algorithm, data):
+    """Function that run algorithm and display the result"""
+    # Header
+    print(f'//  {algorithm.__name__}  //')
+    print('Voici le meilleur portefeuille d\'investissement !')
+    # Run the algorithm
+    result = sorted(algorithm(data), key=lambda x: x[2], reverse=True)
+    # Display result
+    display_portfolio(result)
+
+
 if __name__ == '__main__':
     pass
