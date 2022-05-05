@@ -5,6 +5,7 @@ from algorithms.optimised_algorithm_v1_2 import optimised_algorithm_v1_2
 from algorithms.optimised_algorithm_v1_3 import optimised_algorithm_v1_3
 from algorithms.optimised_algorithm_v1_4 import optimised_algorithm_v1_4
 from algorithms.optimised_algorithm_v1_5 import optimised_algorithm_v1_5
+from algorithms.optimised_algorithm_v1_5 import Portfolio
 from algorithms.algorithm_tools import display_best_portfolio, get_csv_data
 
 # CONSTANTS
