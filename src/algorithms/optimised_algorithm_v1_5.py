@@ -2,6 +2,20 @@
 from .algorithm_tools import get_portfolio_cost, MAXIMUM_PURCHASE_COST
 
 
+class Portfolio:
+    def __init__(self, data, repartition=False):
+        self.data = data
+        if repartition:
+            self.repartition = repartition
+        else:
+            self.repartition = [1 for item in self.data]
+        self.cost = self.portfolio_cost()
+
+    def portfolio_cost(self):
+        """Method to get portfolio total cost"""
+        return get_portfolio_cost([action for action in self.data if self.repartition[self.data.index(action)] == 1])
+
+
 # Optimised algorithm v1_5
 def optimised_algorithm_v1_5(data):
     """Function that gets the best portfolio"""
@@ -37,7 +51,6 @@ def optimised_algorithm_v1_5(data):
 
     # Best portfolio / O(1)
     return best_portfolio
-
 
     # TODO -> 2nd STEP : look for each element in best_portfolio (from right to left) if last action can be replaced by another with better befenit value regarding the max cost = action cost + remaining space
     #  Maybe then, try to restart process each time there is replacement because remaining space normally reduce so new oportunites can appear
