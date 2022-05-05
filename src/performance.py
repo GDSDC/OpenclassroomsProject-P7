@@ -9,7 +9,6 @@ from matplotlib import pyplot as plt
 # CONSTANTS
 ACTIONS_DATA_CSV = 'resources/Actions_data/Performance_data/data.csv'
 ACTIONS_DATA = get_csv_data(ACTIONS_DATA_CSV)
-INPUT = [5, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 23, 24]
 
 
 def o_nlogn_exemple(n):
