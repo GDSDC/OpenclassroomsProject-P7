@@ -1,8 +1,8 @@
 # Imports
-from .algorithm_tools import get_portfolio_cost, get_csv_data, MAXIMUM_PURCHASE_COST
+from .algorithm_tools import get_portfolio_cost, MAXIMUM_PURCHASE_COST
 
 
-# Optimised algorithm v1
+# Optimised algorithm v1_3
 def optimised_algorithm_v1_3(data):
     """Function that gets the best portfolio"""
     # Init / O(1)
