@@ -9,11 +9,25 @@ class Portfolio:
             self.repartition = repartition
         else:
             self.repartition = [1 for item in self.data]
-        self.cost = self.portfolio_cost()
+        self.cost = self.get_portfolio_cost()
+        self.benefit_value = self.get_portfolio_benefit_value()
+        self.benefit_ptc = self.get_portfolio_benefit_ptc()
 
-    def portfolio_cost(self):
+    def get_portfolio_cost(self):
         """Method to get portfolio total cost"""
-        return get_portfolio_cost([action for action in self.data if self.repartition[self.data.index(action)] == 1])
+        return sum([action[1] for action in self.data if self.repartition[self.data.index(action)] == 1])
+
+    def get_portfolio_benefit_value(self):
+        """Method to get portfolio total benefit in value"""
+        result = 0
+        for action in [action for action in self.data if self.repartition[self.data.index(action)] == 1]:
+            _, action_cost, action_benfit_pct = action
+            result += action_cost * action_benfit_pct / 100
+        return result
+
+    def get_portfolio_benefit_ptc(self):
+        """Method to get portfolio total benefit in percentage"""
+        return ((self.cost + self.benefit_value) / self.cost - 1) * 100
 
 
 # Optimised algorithm v1_5
