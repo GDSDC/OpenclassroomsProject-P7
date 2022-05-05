@@ -9,6 +9,11 @@ ACTION_PURCHASE_LIMIT = 1
 ACTION_MINIMUM_FRACTION = 1
 MAXIMUM_PURCHASE_COST = 500
 
+# DISPLAY CONSTANTS
+DISPLAY_HEADER = ['Nom de l\'Action', 'Coût', 'Bénéfice %', 'Bénéfice value', 'Efficacité']
+DISPLAY_HEADER_WHITE_SPACE = 2
+DISPLAY_COLUMN_WIDTH = [len(header) + 2 * DISPLAY_HEADER_WHITE_SPACE for header in DISPLAY_HEADER]
+
 
 # Timing Decorator
 def timer_func(func):
@@ -132,10 +137,10 @@ def display_portfolio(portfolio):
     """Function that display nicely portfolio content"""
 
     # Header
-    print('Nom de l\'Action'.center(20) + '|' + \
-          'Coût'.center(10) + '|' + \
-          'Bénéfice %'.center(20) + '|' + \
-          'Bénéfice value'.center(20) + '|')
+    header_string = ''
+    for i in range(len(DISPLAY_HEADER)):
+        header_string += DISPLAY_HEADER[i].center(DISPLAY_COLUMN_WIDTH[i]) + '|'
+    print(header_string)
 
     for action in portfolio:
         action_display = display_action(action)
@@ -148,20 +153,20 @@ def display_portfolio(portfolio):
           f' {round(get_portfolio_cost(portfolio) + get_portfolio_benefit_ptc(portfolio), 2)}')
     print(f'Valeur du bénéfice : {round(get_portfolio_benefit_ptc(portfolio), 2)}')
     print(
-        f'Bénéfice en pourcentage : {round(get_portfolio_benefit_ptc(portfolio) / get_portfolio_cost(portfolio) * 100, 2)} %')
+        f'Bénéfice en pourcentage : '
+        f'{round(get_portfolio_benefit_ptc(portfolio) / get_portfolio_cost(portfolio) * 100, 2)} %')
 
 
 def display_action(action):
     """Function that display 3 elements in columns"""
     action_name, action_cost, action_benefit_percentage = action
-    name_space = 20
-    cost_space = 10
-    benefit_space = 20
+    name_space, cost_space, benefit_ptc_space, benefit_value_space, efficiency_space = DISPLAY_COLUMN_WIDTH
 
     display = f'{action_name}'.center(name_space) + '|' + \
               f'{action_cost}'.center(cost_space) + '|' + \
-              f'{action_benefit_percentage} %'.center(benefit_space) + '|' + \
-              f'{round(action_benefit_percentage * action_cost / 100, 2)}'.center(benefit_space) + '|'
+              f'{action_benefit_percentage} %'.center(benefit_ptc_space) + '|' + \
+              f'{round(action_benefit_percentage * action_cost / 100, 2)}'.center(benefit_value_space) + '|' + \
+              f'{round(action_benefit_percentage / action_cost, 2)}'.center(efficiency_space) + '|'
     return display
 
 
@@ -171,7 +176,7 @@ def display_best_portfolio(algorithm, data):
     print(f'//  {algorithm.__name__}  //')
     print('Voici le meilleur portefeuille d\'investissement !')
     # Run the algorithm
-    result = sorted(algorithm(data), key=lambda x: x[2], reverse=True)
+    result = algorithm(data)
     # Display result
     display_portfolio(result)
 
