@@ -72,7 +72,10 @@ class Portfolio:
 
     def get_portfolio_benefit_ptc(self):
         """Method to get portfolio total benefit in percentage"""
-        return ((self.cost + self.benefit_value) / self.cost - 1) * 100
+        if self.cost == 0:
+            return 0
+        else:
+            return ((self.cost + self.benefit_value) / self.cost - 1) * 100
 
 
 # FUNCTIONS
@@ -148,7 +151,7 @@ def get_csv_data(data_csv):
 
     # Formating result
     result = [[action_name, int(action_cost), int(action_profit[:-1])]
-              for [action_name, action_cost, action_profit] in data[1:]]
+              for [action_name, action_cost, action_profit] in data]
 
     return result
 
