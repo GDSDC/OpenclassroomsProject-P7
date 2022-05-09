@@ -1,4 +1,6 @@
 # Imports
+from dataclasses import dataclass
+from typing import List
 import csv
 from itertools import combinations
 from time import time
@@ -15,6 +17,65 @@ DISPLAY_HEADER_WHITE_SPACE = 2
 DISPLAY_COLUMN_WIDTH = [len(header) + 2 * DISPLAY_HEADER_WHITE_SPACE for header in DISPLAY_HEADER]
 
 
+# CLASSES
+@dataclass
+class Action:
+    """Class for actions"""
+    name: str
+    cost: int
+    benefit_value: float
+    benefit_ptc: int
+
+    def __init__(self, action_data):
+        name, cost, benefit_ptc = action_data
+        self.name = name
+        self.cost = cost
+        self.benefit_ptc = benefit_ptc
+        self.benefit_value = self.get_action_benefit_value()
+
+    def get_action_benefit_value(self):
+        return (self.cost * self.benefit_ptc) / 100
+
+
+@dataclass
+class Portfolio:
+    """Class for portfolios"""
+    data: List[Action]
+    repartition: List[int]
+    cost: int
+    benefit_value: float
+    benefit_ptc: float
+
+    def __init__(self, data, repartition=False):
+        self.data = data
+        self.repartition = self.get_portfolio_repartition(repartition)
+        self.cost = self.get_portfolio_cost()
+        self.benefit_value = self.get_portfolio_benefit_value()
+        self.benefit_ptc = self.get_portfolio_benefit_ptc()
+
+    def get_portfolio_repartition(self, repartition):
+        if repartition:
+            return repartition
+        else:
+            return [1 for _ in self.data]
+
+    def get_portfolio_cost(self):
+        """Method to get portfolio total cost"""
+        return sum([action.cost for action in self.data if self.repartition[self.data.index(action)] == 1])
+
+    def get_portfolio_benefit_value(self):
+        """Method to get portfolio total benefit in value"""
+        result = 0
+        for action in [action for action in self.data if self.repartition[self.data.index(action)] == 1]:
+            result += action.cost * action.benefit_ptc / 100
+        return result
+
+    def get_portfolio_benefit_ptc(self):
+        """Method to get portfolio total benefit in percentage"""
+        return ((self.cost + self.benefit_value) / self.cost - 1) * 100
+
+
+# FUNCTIONS
 # Timing Decorator
 def timer_func(func):
     # This function shows the execution time of
