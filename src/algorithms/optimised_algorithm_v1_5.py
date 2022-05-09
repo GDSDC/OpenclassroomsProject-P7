@@ -63,11 +63,48 @@ def optimised_algorithm_v1_5(data):
             if total_cost == MAXIMUM_PURCHASE_COST:
                 break
 
-    # Best portfolio / O(1)
-    return best_portfolio
+    # for best_action in reversed(best_portfolio):
+    #     _,best_action_cost,best_action_benefit_ptc = best_action
+    #     for action in actions_data_sorted_under_max_purchase_cost:
+    #         _,action_cost,action_benefit_ptc = action
+    #         if action_cost <= MAXIMUM_PURCHASE_COST - (get_portfolio_cost(best_portfolio) - best_action_cost):
+    #             if action_cost * (100 + action_benefit_ptc) > best_action_cost * (100 + best_action_benefit_ptc):
+    #                 best_portfolio.insert(action,best_portfolio.index(best_action))
+    #                 actions_data_sorted_under_max_purchase_cost.append(best_action)
+    #                 actions_data_sorted_under_max_purchase_cost.sort(key=lambda x: x[2], reverse=True)
+    #                 actions_data_sorted_under_max_purchase_cost.remove(action)
+    #                 break
+
+    must_break_while_loop = False
+    while not must_break_while_loop:
+        must_break = False
+        for i in reversed(range(len(best_portfolio) - 1, -1, -1)):
+            if must_break:
+                break
+            else:
+                best_action = best_portfolio[i]
+                _, best_action_cost, best_action_benefit_ptc = best_action
+                for action in actions_data_sorted_under_max_purchase_cost:
+                    _, action_cost, action_benefit_ptc = action
+                    if action_cost <= MAXIMUM_PURCHASE_COST - (get_portfolio_cost(best_portfolio) - best_action_cost):
+                        if action_cost * (100 + action_benefit_ptc) > best_action_cost * (
+                                100 + best_action_benefit_ptc):
+                            best_portfolio.insert(action, best_portfolio.index(best_action))
+                            actions_data_sorted_under_max_purchase_cost.append(best_action)
+                            actions_data_sorted_under_max_purchase_cost.remove(action)
+                            actions_data_sorted_under_max_purchase_cost.sort(key=lambda x: x[2], reverse=True)
+                            must_break = True
+                            print('CHANGED ACTION !')
+                            break
+                if best_action == best_portfolio[0]:
+                    print('OK')
+                    must_break_while_loop = True
 
     # TODO -> 2nd STEP : look for each element in best_portfolio (from right to left) if last action can be replaced by another with better befenit value regarding the max cost = action cost + remaining space
     #  Maybe then, try to restart process each time there is replacement because remaining space normally reduce so new oportunites can appear
+
+    # Best portfolio / O(1)
+    return best_portfolio
 
     # Overall Complexity = O(n) + 2 * O(1) + O(n*log(n)) => O(n*log(n))
 
