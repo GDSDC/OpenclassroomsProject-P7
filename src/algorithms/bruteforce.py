@@ -1,9 +1,10 @@
 # Imports
-from .algorithm_tools import get_portfolio_cost, get_portfolio_benefit_ptc, get_all_combinations, MAXIMUM_PURCHASE_COST
+from .algorithm_tools import get_portfolio_cost, get_portfolio_benefit_pct, get_all_combinations, \
+    MAXIMUM_PURCHASE_COST, Portfolio, Action
 
 
 # Bruteforce algorithm
-def bruteforce_algorithm(data):
+def bruteforce_algorithm(data) -> Portfolio:
     """Function that gets the best portfolio"""
 
     # Generate all combinations of portfolios / O(2^n)
@@ -15,11 +16,13 @@ def bruteforce_algorithm(data):
 
     # Sort them by total benefit /  O(n*log(n))
     portfolios_under_max_cost_sorted = sorted(portfolios_under_max_cost,
-                                              key=lambda x: get_portfolio_benefit_ptc(x) * get_portfolio_cost(x),
+                                              key=lambda x: get_portfolio_benefit_pct(x) * get_portfolio_cost(x),
                                               reverse=True)
 
     # Best portfolio / O(1)
-    return portfolios_under_max_cost_sorted[0]
+    # TODO: revoir O
+    repartition = [1 if action in portfolios_under_max_cost_sorted[0] else 0 for action in data]
+    return Portfolio(data=[Action(item) for item in data],repartition=repartition)
 
     # Overall Complexity = 2 * O(2^n) + O(n*log(n)) + O(1) => O(2^n)
 
