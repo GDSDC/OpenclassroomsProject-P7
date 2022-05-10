@@ -1,6 +1,6 @@
 # Imports
 from typing import List
-from .algorithm_tools import MAXIMUM_PURCHASE_COST, Portfolio, Action
+from src.model import MAXIMUM_PURCHASE_COST, Portfolio, Action
 
 
 def optimised_algorithm_dynamic(data, max_cost: int = MAXIMUM_PURCHASE_COST) -> Portfolio:

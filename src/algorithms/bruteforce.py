@@ -1,6 +1,6 @@
 # Imports
-from .algorithm_tools import get_portfolio_cost, get_portfolio_benefit_pct, get_all_combinations, \
-    MAXIMUM_PURCHASE_COST, Portfolio, Action
+from .algorithm_tools import get_portfolio_cost, get_portfolio_benefit_pct, get_all_combinations
+from src.model import MAXIMUM_PURCHASE_COST, Portfolio, Action
 
 
 # Bruteforce algorithm
