@@ -17,7 +17,7 @@ def bruteforce_algorithm(data: List[Action]) -> Portfolio:
 
     # Sort them by total benefit /  O(n*log(n))
     portfolios_under_max_cost_sorted = sorted(portfolios_under_max_cost,
-                                              key=lambda x: sum([action.benefit_value for action in x]),
+                                              key=lambda x: sum([action.value_after_two_years for action in x]),
                                               reverse=True)
 
     # Best portfolio / O(n) ??

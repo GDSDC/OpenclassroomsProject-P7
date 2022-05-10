@@ -14,8 +14,8 @@ def optimised_algorithm_dynamic(data: List[Action], max_cost: int = MAXIMUM_PURC
             if i == 0 or w == 0:
                 pass
             elif w >= data[i - 1].cost:
-                if data[i - 1].benefit_value + Portfolio(
-                        data=k[i - 1][w - data[i - 1].cost]).benefit_value > Portfolio(data=k[i - 1][w]).benefit_value:
+                if data[i - 1].value_after_two_years + Portfolio(
+                        data=k[i - 1][w - data[i - 1].cost]).value_after_two_years > Portfolio(data=k[i - 1][w]).value_after_two_years:
                     k[i][w].extend(k[i - 1][w - data[i - 1].cost])
                     k[i][w].append(data[i - 1])
                 else:
