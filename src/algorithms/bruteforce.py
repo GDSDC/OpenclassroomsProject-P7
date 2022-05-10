@@ -19,12 +19,11 @@ def bruteforce_algorithm(data) -> Portfolio:
                                               key=lambda x: get_portfolio_benefit_pct(x) * get_portfolio_cost(x),
                                               reverse=True)
 
-    # Best portfolio / O(1)
-    # TODO: revoir O
+    # Best portfolio / O(n)
     repartition = [1 if action in portfolios_under_max_cost_sorted[0] else 0 for action in data]
     return Portfolio(data=[Action(item) for item in data],repartition=repartition)
 
-    # Overall Complexity = 2 * O(2^n) + O(n*log(n)) + O(1) => O(2^n)
+    # Overall Complexity = 2 * O(2^n) + O(n*log(n)) + O(n) => O(2^n)
 
 
 if __name__ == '__main__':
