@@ -20,6 +20,11 @@ class Action:
     def benefit_value(self):
         return (self.cost * self.performance) / 100
 
+    @property
+    def value_after_two_years(self):
+        """Method to get the total value of the action after two years"""
+        return self.cost + self.benefit_value
+
 
 @dataclass
 class Portfolio:
