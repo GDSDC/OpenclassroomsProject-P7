@@ -39,12 +39,12 @@ class Portfolio:
     @property
     def cost(self):
         """Method to get portfolio total cost"""
-        return sum([action.cost for action in self.actions])
+        return sum([action.cost for action in self.actions]) if self.actions else 0
 
     @property
     def benefit_value(self):
         """Method to get portfolio total benefit in value"""
-        return sum([action.benefit_value for action in self.actions])
+        return sum([action.benefit_value for action in self.actions]) if self.actions else 0
 
     @property
     def performance(self):
