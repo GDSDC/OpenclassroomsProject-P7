@@ -151,7 +151,7 @@ def display_portfolio(portfolio):
           f' {round(portfolio.value_after_two_years, 2)}')
     print(f'Valeur du bénéfice : {round(portfolio.benefit_value, 2)}')
     print(
-        f'Bénéfice en pourcentage : '
+        f'Performance en pourcentage : '
         f'{round(portfolio.performance, 2)} %')
 
 
