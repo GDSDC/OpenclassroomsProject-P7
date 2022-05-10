@@ -149,7 +149,7 @@ def get_csv_data(data_csv):
         for row in data_reader:
             data.append(row)
 
-    # Formating result
+    # Formatting result
     result = [[action_name, int(action_cost), int(action_profit[:-1])]
               for [action_name, action_cost, action_profit] in data]
 
@@ -239,7 +239,7 @@ def display_best_portfolio(algorithm, data):
     print(f'//  {algorithm.__name__}  //')
     print('Voici le meilleur portefeuille d\'investissement !')
     # Run the algorithm
-    result = algorithm(data=[Action(item) for item in data])
+    result = algorithm(data=data)
     # Display result
     display_portfolio(result)
 
