@@ -18,23 +18,35 @@ DISPLAY_COLUMN_WIDTH = [len(header) + 2 * DISPLAY_HEADER_WHITE_SPACE for header 
 
 
 # CLASSES
-@dataclass
+@dataclass(unsafe_hash=True)
 class Action:
     """Class for actions"""
     name: str
     cost: int
-    benefit_value: float
     benefit_pct: int
 
-    def __init__(self, action_data):
-        name, cost, benefit_pct = action_data
-        self.name = name
-        self.cost = cost
-        self.benefit_pct = benefit_pct
-        self.benefit_value = self.get_action_benefit_value()
-
-    def get_action_benefit_value(self):
+    def benefit_value(self):
         return (self.cost * self.benefit_pct) / 100
+
+
+@dataclass
+class Portfolio2:
+    """Class for portfolios"""
+    actions: List[Action]
+
+    def cost(self):
+        return sum([a.cost for a in self.actions])
+
+    def benefit(self):
+        result = 0
+        for action in self.actions:
+            result += action.cost * action.benefit_pct / 100
+        return result
+
+    def performance(self):
+        cost = self.cost()
+        benefit = self.benefit()
+        return ((cost + benefit) / cost - 1) * 100 if cost > 0 else 0
 
 
 @dataclass
@@ -153,7 +165,8 @@ def get_csv_data(data_csv):
     result = [[action_name, int(action_cost), int(action_profit[:-1])]
               for [action_name, action_cost, action_profit] in data]
 
-    return result
+    actions = [Action(*row) for row in result]
+    return actions
 
 
 # Functions
@@ -228,18 +241,18 @@ def display_action(action):
     display = f'{action.name}'.center(name_space) + '|' + \
               f'{action.cost}'.center(cost_space) + '|' + \
               f'{action.benefit_pct} %'.center(benefit_pct_space) + '|' + \
-              f'{round(action.benefit_value, 2)}'.center(benefit_value_space) + '|' + \
+              f'{round(action.benefit_value(), 2)}'.center(benefit_value_space) + '|' + \
               f'{round(action.benefit_pct / action.cost, 2)}'.center(efficiency_space) + '|'
     return display
 
 
-def display_best_portfolio(algorithm, data):
+def display_best_portfolio(algorithm, actions: List[Action]):
     """Function that run algorithm and display the result"""
     # Header
     print(f'//  {algorithm.__name__}  //')
     print('Voici le meilleur portefeuille d\'investissement !')
     # Run the algorithm
-    result = algorithm(data=data)
+    result = algorithm(actions)
     # Display result
     display_portfolio(result)
 
