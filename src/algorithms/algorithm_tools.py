@@ -141,11 +141,11 @@ def display_portfolio(portfolio):
         header_string += DISPLAY_HEADER[i].center(DISPLAY_COLUMN_WIDTH[i]) + '|'
     print(header_string)
 
-    for action in portfolio.data:
+    for action in portfolio.actions:
         action_display = display_action(action)
         print(action_display)
 
-    print(f'Nombre d\'actions en portefeuille : {len(portfolio.data)}')
+    print(f'Nombre d\'actions en portefeuille : {len(portfolio.actions)}')
     print(f'Coût total du portefeuille : {portfolio.cost}')
     print(f'Valeur du portefeuille au bout de 2 ans :'
           f' {round(portfolio.value_after_two_years, 2)}')
@@ -167,13 +167,13 @@ def display_action(action):
     return display
 
 
-def display_best_portfolio(algorithm, data):
+def display_best_portfolio(algorithm, actions):
     """Function that run algorithm and display the result"""
     # Header
     print(f'//  {algorithm.__name__}  //')
     print('Voici le meilleur portefeuille d\'investissement !')
     # Run the algorithm
-    result = algorithm(data=data)
+    result = algorithm(actions=actions)
     # Display result
     display_portfolio(result)
 

@@ -25,21 +25,26 @@ class Action:
         """Method to get the total value of the action after two years"""
         return self.cost + self.benefit_value
 
+    @property
+    def efficiency(self):
+        """Method to get efficeny of an action"""
+        return self.performance / self.cost
+
 
 @dataclass
 class Portfolio:
     """Class for portfolios"""
-    data: List[Action]
+    actions: List[Action]
 
     @property
     def cost(self):
         """Method to get portfolio total cost"""
-        return sum([action.cost for action in self.data])
+        return sum([action.cost for action in self.actions])
 
     @property
     def benefit_value(self):
         """Method to get portfolio total benefit in value"""
-        return sum([action.benefit_value for action in self.data])
+        return sum([action.benefit_value for action in self.actions])
 
     @property
     def performance(self):
