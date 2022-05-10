@@ -3,10 +3,11 @@ from typing import List
 from .algorithm_tools import MAXIMUM_PURCHASE_COST, Portfolio, Action
 
 
-def optimised_algorithm_dynamic(data: List[Action], max_cost: int = MAXIMUM_PURCHASE_COST) -> Portfolio:
+def optimised_algorithm_dynamic(data, max_cost: int = MAXIMUM_PURCHASE_COST) -> Portfolio:
     """Function that returns the best portfolio - dynamic algorithm"""
 
     # Init
+    data = [Action(item) for item in data]
     k = [[list() for _ in range(max_cost + 1)] for _ in range(len(data) + 1)]
 
     for i in range(len(data) + 1):
