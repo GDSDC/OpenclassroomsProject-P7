@@ -4,23 +4,57 @@ from src.model import MAXIMUM_PURCHASE_COST, Portfolio, Action
 
 
 def optimised_algorithm_dynamic(actions: List[Action], max_cost: int = MAXIMUM_PURCHASE_COST) -> Portfolio:
-    """Function that returns the best portfolio - dynamic algorithm"""
+    """
+    Function that returns the best portfolio - dynamic algorithm
+    cf https://fr.wikipedia.org/wiki/Probl%C3%A8me_du_sac_%C3%A0_dos paragraphe Resolution exacte
+    """
 
-    # Init
-    k = [[list() for _ in range(max_cost + 1)] for _ in range(len(actions) + 1)]
+    # Init -> O(1)
+    actions_count = len(actions)
+    optimised_space = []
 
-    for i in range(len(actions) + 1):
-        for w in range(max_cost + 1):
-            if i == 0 or w == 0:
+    # Iteration -> O(n^2)
+    for nb_actions in range(actions_count + 1):
+        # nb_actions -> number of actions in portfolio
+        # Create an empty 'row' in optimised_space
+        optimised_space.append([])
+        for portfolio_funds in range(max_cost + 1):
+            # portfolio_funds -> funds value for portfolio to buy in action
+            # Create an empty 'column' in optimised_space[nb_actions]
+            optimised_space[nb_actions].append([])
+
+            # Initialization : empty value for init
+            if nb_actions == 0 or portfolio_funds == 0:
                 pass
-            elif w >= actions[i - 1].cost:
-                if actions[i - 1].value_after_two_years + Portfolio(
-                        actions=k[i - 1][w - actions[i - 1].cost]).value_after_two_years > Portfolio(actions=k[i - 1][w]).value_after_two_years:
-                    k[i][w].extend(k[i - 1][w - actions[i - 1].cost])
-                    k[i][w].append(actions[i - 1])
-                else:
-                    k[i][w].extend(k[i - 1][w])
-            else:
-                k[i][w].extend(k[i - 1][w])
 
-    return Portfolio(actions=k[len(actions)][max_cost])
+            else:
+                action = actions[nb_actions - 1]  # current action index = nb_actions - 1
+                # because actions[0] correspond to nb_actions = 1
+                last_best_portfolio = optimised_space[nb_actions - 1][portfolio_funds]
+                last_best_portfolio_without_action_funds = optimised_space[nb_actions - 1][portfolio_funds - action.cost]
+
+                if action.cost <= portfolio_funds:
+                    value_after_two_years_portfolio_WITH_action = action.value_after_two_years + Portfolio(
+                        actions=last_best_portfolio_without_action_funds).value_after_two_years
+                    value_after_two_years_portfolio_WITHOUT_action = Portfolio(
+                        actions=last_best_portfolio).value_after_two_years
+
+                    if value_after_two_years_portfolio_WITH_action > value_after_two_years_portfolio_WITHOUT_action:
+                        # Create new_best_portfolio with action in there
+                        new_best_portfolio = []
+                        new_best_portfolio.extend(last_best_portfolio_without_action_funds)
+                        new_best_portfolio.extend([action])
+                        optimised_space[nb_actions][portfolio_funds].extend(new_best_portfolio)
+
+                    else:
+                        # new_best_portfolio = last_best_portfolio
+                        optimised_space[nb_actions][portfolio_funds].extend(last_best_portfolio)
+
+                else:
+                    # new_best_portfolio = last_best_portfolio
+                    optimised_space[nb_actions][portfolio_funds].extend(last_best_portfolio)
+
+    return Portfolio(actions=optimised_space[actions_count][max_cost])
+
+    # Overall Complexity = O(n^2)
+
