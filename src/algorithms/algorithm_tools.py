@@ -4,6 +4,7 @@ import csv
 from itertools import combinations
 from time import time
 import tracemalloc
+from src.model import Action
 
 # DISPLAY CONSTANTS
 DISPLAY_HEADER = ['Nom de l\'Action', 'Coût', 'Bénéfice %', 'Bénéfice value', 'Efficacité']
@@ -69,7 +70,7 @@ def get_ram_peak_func(func):
 
 
 # Functions
-def get_csv_data(data_csv):
+def get_csv_data(data_csv: str) -> List[Action]:
     """Function to get data from CSV file"""
 
     # Init
@@ -86,7 +87,8 @@ def get_csv_data(data_csv):
     result = [[action_name, int(action_cost), int(action_profit[:-1])]
               for [action_name, action_cost, action_profit] in data]
 
-    return result
+    return [Action(action_name, action_cost, action_performance) for (action_name, action_cost, action_performance) in
+            result]
 
 
 # Functions
@@ -140,18 +142,17 @@ def display_portfolio(portfolio):
     print(header_string)
 
     for action in portfolio.data:
-        if portfolio.repartition[portfolio.data.index(action)] == 1:
-            action_display = display_action(action)
-            print(action_display)
+        action_display = display_action(action)
+        print(action_display)
 
-    print(f'Nombre d\'actions en portefeuille : {sum(portfolio.repartition)}')
+    print(f'Nombre d\'actions en portefeuille : {len(portfolio.data)}')
     print(f'Coût total du portefeuille : {portfolio.cost}')
     print(f'Valeur du portefeuille au bout de 2 ans :'
-          f' {round(portfolio.cost + portfolio.benefit_value, 2)}')
+          f' {round(portfolio.value_after_two_years, 2)}')
     print(f'Valeur du bénéfice : {round(portfolio.benefit_value, 2)}')
     print(
         f'Bénéfice en pourcentage : '
-        f'{round(portfolio.benefit_pct, 2)} %')
+        f'{round(portfolio.performance, 2)} %')
 
 
 def display_action(action):
@@ -160,9 +161,9 @@ def display_action(action):
 
     display = f'{action.name}'.center(name_space) + '|' + \
               f'{action.cost}'.center(cost_space) + '|' + \
-              f'{action.benefit_pct} %'.center(benefit_pct_space) + '|' + \
+              f'{action.performance} %'.center(benefit_pct_space) + '|' + \
               f'{round(action.benefit_value, 2)}'.center(benefit_value_space) + '|' + \
-              f'{round(action.benefit_pct / action.cost, 2)}'.center(efficiency_space) + '|'
+              f'{round(action.performance / action.cost, 2)}'.center(efficiency_space) + '|'
     return display
 
 
