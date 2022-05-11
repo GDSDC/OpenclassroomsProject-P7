@@ -31,10 +31,12 @@ def display_best_portfolio(algorithm, actions):
 
 if __name__ == '__main__':
     print('')
-    actions : List[Action] = get_csv_data(ACTIONS_DATA_CSV)
 
     algo_name = sys.argv[1] if len(sys.argv) > 1 else DEFAULT_ALGORITHM
     algorithm = ALGORITHM_PROVIDER[algo_name]
+
+    csv_path = sys.argv[2] if  len(sys.argv) > 2 else ACTIONS_DATA_CSV
+    actions : List[Action] = get_csv_data(csv_path)
 
     display_best_portfolio(algorithm=algorithm, actions=actions)
     print('')
