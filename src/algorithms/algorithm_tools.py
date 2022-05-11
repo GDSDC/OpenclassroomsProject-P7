@@ -84,7 +84,7 @@ def get_csv_data(data_csv: str) -> List[Action]:
             data.append(row)
 
     # Formatting result
-    result = [[action_name, int(action_cost), int(action_profit[:-1])]
+    result = [[action_name, float(action_cost), float(action_profit[:-1])]
               for [action_name, action_cost, action_profit] in data]
 
     return [Action(action_name, action_cost, action_performance) for (action_name, action_cost, action_performance) in

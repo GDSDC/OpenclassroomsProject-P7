@@ -1,6 +1,7 @@
 # Imports
 from typing import List
 from src.model import MAXIMUM_PURCHASE_COST, Portfolio, Action
+from math import ceil as rounded_upp
 
 
 def optimised_algorithm_dynamic(actions: List[Action], max_cost: int = MAXIMUM_PURCHASE_COST) -> Portfolio:
@@ -31,7 +32,7 @@ def optimised_algorithm_dynamic(actions: List[Action], max_cost: int = MAXIMUM_P
                 action = actions[nb_actions - 1]  # current action index = nb_actions - 1
                 # because actions[0] correspond to nb_actions = 1
                 last_best_portfolio = optimised_space[nb_actions - 1][portfolio_funds]
-                last_best_portfolio_without_action_funds = optimised_space[nb_actions - 1][portfolio_funds - action.cost]
+                last_best_portfolio_without_action_funds = optimised_space[nb_actions - 1][portfolio_funds - rounded_upp(action.cost)]
 
                 if action.cost <= portfolio_funds:
                     value_after_two_years_portfolio_WITH_action = action.value_after_two_years + Portfolio(
