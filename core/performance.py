@@ -1,7 +1,7 @@
 # Imports
-from src.algorithms.bruteforce import bruteforce_algorithm as bt_algo
-from src.algorithms.optimised_algorithm_greedy import optimised_algorithm_greedy as ov1_algo
-from src.algorithms.algorithm_tools import get_csv_data, get_time_func, get_ram_peak_func
+from algorithms.bruteforce import bruteforce_algorithm as bt_algo
+from algorithms.optimised_algorithm_greedy import optimised_algorithm_greedy as ov1_algo
+from algorithms.algorithm_tools import get_csv_data, get_time_func, get_ram_peak_func
 from matplotlib import pyplot as plt
 
 # CONSTANTS

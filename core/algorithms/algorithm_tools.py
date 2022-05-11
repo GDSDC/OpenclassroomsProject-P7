@@ -4,7 +4,7 @@ import csv
 from itertools import combinations
 from time import time
 import tracemalloc
-from src.model import Action
+from core.model import Action
 
 # DISPLAY CONSTANTS
 DISPLAY_HEADER = ['Nom de l\'Action', 'Coût', 'Bénéfice %', 'Bénéfice value', 'Efficacité']

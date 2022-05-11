@@ -1,6 +1,6 @@
 # Imports
 from .algorithm_tools import get_portfolio_cost
-from src.model import MAXIMUM_PURCHASE_COST, Portfolio, Action
+from core.model import MAXIMUM_PURCHASE_COST, Portfolio, Action
 from typing import List
 
 

@@ -1,6 +1,6 @@
 # Imports
 from typing import List
-from src.model import MAXIMUM_PURCHASE_COST, Portfolio, Action
+from core.model import MAXIMUM_PURCHASE_COST, Portfolio, Action
 from math import ceil as rounded_upp
 
 
