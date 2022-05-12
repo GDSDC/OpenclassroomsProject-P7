@@ -36,8 +36,8 @@ def performance_analysis(analysis: Dict[str, Any], algorithms: List[Callable], d
 
     # Plot Formatting
     plt.ylabel(analysis['ylabel'])
-    plt.xlabel('number of data entries')
-    plt.title(analysis['title'])
+    plt.xlabel('number of data entries (n)')
+    plt.title(f'{analysis["title"]} - n={data_size}')
     plt.legend([algorithm.__name__ for algorithm in algorithms])
     plt.grid()
     plt.xscale = xscale
