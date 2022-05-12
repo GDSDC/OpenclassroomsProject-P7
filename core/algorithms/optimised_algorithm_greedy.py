@@ -5,7 +5,7 @@ from typing import List
 
 
 # Optimised algorithm v1_4 -> Greedy algorithm
-def optimised_algorithm_greedy(actions : List[Action], max_cost: int = MAXIMUM_PURCHASE_COST):
+def optimised_algorithm_greedy(actions: List[Action], max_cost: int = MAXIMUM_PURCHASE_COST):
     """Function that gets the best portfolio"""
     # Init / O(1)
     best_portfolio = Portfolio(actions=[])
@@ -19,7 +19,7 @@ def optimised_algorithm_greedy(actions : List[Action], max_cost: int = MAXIMUM_P
     # Sum action until total cost <= 500 / O(n)
     best_portfolio.actions.append(actions_sorted_under_max_cost[0])
     for action in actions_sorted_under_max_cost[1:]:
-        if best_portfolio.cost + action.cost <= max_cost:
+        if best_portfolio.cost + action.cost <= max_cost and action.cost > 0:
             best_portfolio.actions.append(action)
             if best_portfolio.cost == max_cost:
                 break
