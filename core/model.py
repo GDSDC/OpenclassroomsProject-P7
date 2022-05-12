@@ -26,6 +26,11 @@ class Action:
         return self.cost + self.benefit_value
 
     @property
+    def parameter_to_maximize(self) -> float:
+        """Method to choose the parameter to maximize"""
+        return self.benefit_value
+
+    @property
     def efficiency(self) -> float:
         """Method to get efficeny of an action"""
         return self.performance / self.cost if self.cost > 0 else 0
@@ -55,3 +60,8 @@ class Portfolio:
     def value_after_two_years(self) -> float:
         """Method to get the total value of the portfolio after two years"""
         return self.cost + self.benefit_value
+
+    @property
+    def parameter_to_maximize(self) -> float:
+        """Method to choose the parameter to maximize"""
+        return self.benefit_value
