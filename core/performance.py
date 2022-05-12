@@ -55,26 +55,26 @@ def performance_comparison(algorithm: Callable):
     display = lambda x: print(f'''-----------------------------------
 /// -- {x['algorithm_name']} -- //
 -----------------------------------
-Valeur après 2 ans : {x['value_after_two_years']}
+Paramètre à maximiser : {x['parameter_to_maximize']}
 Temps d'éxécution : {x['algorithm_durantion']}
 RAM peak : {x['algorithm_RAM_peak']} MB
 -----------------------------------''')
 
     # Dynamic algorithm details
     dyn_algo_results = {'algorithm_name': 'optimised_algorithm_dynamic',
-                        'value_after_two_years': 745,
-                        'algorithm_durantion': 2.92,
-                        'algorithm_RAM_peak': 63.67}
+                        'parameter_to_maximize': 245,
+                        'algorithm_durantion': 2.43,
+                        'algorithm_RAM_peak': 63.39}
 
     display(dyn_algo_results)
 
     # Compared algorithm details
     compared_algo_duration = get_time_func(algorithm)(actions=ACTIONS_DATA[:data_size])
     compared_algo_RAM_peak = get_ram_peak_func(algorithm)(actions=ACTIONS_DATA[:data_size])
-    compared_algo_value_after_two_year = algorithm(actions=ACTIONS_DATA[:data_size]).value_after_two_years
+    compared_algo_parameter_to_maximize = round(algorithm(actions=ACTIONS_DATA[:data_size]).parameter_to_maximize,2)
 
     compared_algo_results = {'algorithm_name': algorithm.__name__,
-                             'value_after_two_years': compared_algo_value_after_two_year,
+                             'parameter_to_maximize': compared_algo_parameter_to_maximize,
                              'algorithm_durantion': compared_algo_duration,
                              'algorithm_RAM_peak': compared_algo_RAM_peak}
 
@@ -83,7 +83,7 @@ RAM peak : {x['algorithm_RAM_peak']} MB
     print('===================================')
 
     comparison_results = {'algorithm_name': 'COMPARISON RESULTS',
-                          'value_after_two_years': f"{round((compared_algo_results['value_after_two_years'] / dyn_algo_results['value_after_two_years'] - 1) * 100,2)} %",
+                          'parameter_to_maximize': f"{round((compared_algo_results['parameter_to_maximize'] / dyn_algo_results['parameter_to_maximize'] - 1) * 100,2)} %",
                           'algorithm_durantion': f"{round((compared_algo_results['algorithm_durantion'] / dyn_algo_results['algorithm_durantion'] - 1) * 100,2)} %",
                           'algorithm_RAM_peak': f"{round((compared_algo_results['algorithm_RAM_peak'] / dyn_algo_results['algorithm_RAM_peak'] - 1) * 100,2)} %"}
 

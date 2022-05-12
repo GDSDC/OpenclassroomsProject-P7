@@ -35,12 +35,12 @@ def optimised_algorithm_dynamic(actions: List[Action], max_cost: int = MAXIMUM_P
                 last_best_portfolio_without_action_funds = optimised_space[nb_actions - 1][portfolio_funds - rounded_upp(action.cost)]
 
                 if action.cost <= portfolio_funds:
-                    value_after_two_years_portfolio_WITH_action = action.value_after_two_years + Portfolio(
-                        actions=last_best_portfolio_without_action_funds).value_after_two_years
-                    value_after_two_years_portfolio_WITHOUT_action = Portfolio(
-                        actions=last_best_portfolio).value_after_two_years
+                    maximized_portfolio_WITH_action = action.parameter_to_maximize + Portfolio(
+                        actions=last_best_portfolio_without_action_funds).parameter_to_maximize
+                    maximized_portfolio_WITHOUT_action = Portfolio(
+                        actions=last_best_portfolio).parameter_to_maximize
 
-                    if value_after_two_years_portfolio_WITH_action > value_after_two_years_portfolio_WITHOUT_action:
+                    if maximized_portfolio_WITH_action > maximized_portfolio_WITHOUT_action:
                         # Create new_best_portfolio with action in there
                         new_best_portfolio = []
                         new_best_portfolio.extend(last_best_portfolio_without_action_funds)
