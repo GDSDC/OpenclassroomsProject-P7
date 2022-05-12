@@ -28,7 +28,7 @@ class Action:
     @property
     def efficiency(self) -> float:
         """Method to get efficeny of an action"""
-        return self.performance / self.cost
+        return self.performance / self.cost if self.cost > 0 else 0
 
 
 @dataclass
