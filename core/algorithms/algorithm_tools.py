@@ -163,7 +163,7 @@ def display_action(action):
               f'{action.cost}'.center(cost_space) + '|' + \
               f'{action.performance} %'.center(benefit_pct_space) + '|' + \
               f'{round(action.benefit_value, 2)}'.center(benefit_value_space) + '|' + \
-              f'{round(action.performance / action.cost, 2)}'.center(efficiency_space) + '|'
+              f'{round(action.efficiency, 2)}'.center(efficiency_space) + '|'
     return display
 
 
