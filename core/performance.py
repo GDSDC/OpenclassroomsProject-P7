@@ -47,11 +47,10 @@ def chart_performance_analysis(analysis: Dict[str, Any], algorithms: List[Callab
     plt.show()
 
 
-def performance_comparison(algorithm: Callable):
+def performance_comparison(algorithm: Callable, data_size: int = 1000):
     """Function to compare results and performance of an algorithm vs dyn_algo"""
 
     # Init
-    data_size: int = 1000
     display = lambda x: print(f'''-----------------------------------
 /// -- {x['algorithm_name']} -- //
 -----------------------------------
@@ -71,7 +70,7 @@ RAM peak : {x['algorithm_RAM_peak']} MB
     # Compared algorithm details
     compared_algo_duration = get_time_func(algorithm)(actions=ACTIONS_DATA[:data_size])
     compared_algo_RAM_peak = get_ram_peak_func(algorithm)(actions=ACTIONS_DATA[:data_size])
-    compared_algo_parameter_to_maximize = round(algorithm(actions=ACTIONS_DATA[:data_size]).parameter_to_maximize,2)
+    compared_algo_parameter_to_maximize = round(algorithm(actions=ACTIONS_DATA[:data_size]).parameter_to_maximize, 2)
 
     compared_algo_results = {'algorithm_name': algorithm.__name__,
                              'parameter_to_maximize': compared_algo_parameter_to_maximize,
@@ -83,8 +82,8 @@ RAM peak : {x['algorithm_RAM_peak']} MB
     print('===================================')
 
     comparison_results = {'algorithm_name': 'COMPARISON RESULTS',
-                          'parameter_to_maximize': f"{round((compared_algo_results['parameter_to_maximize'] / dyn_algo_results['parameter_to_maximize'] - 1) * 100,2)} %",
-                          'algorithm_durantion': f"{round((compared_algo_results['algorithm_durantion'] / dyn_algo_results['algorithm_durantion'] - 1) * 100,2)} %",
-                          'algorithm_RAM_peak': f"{round((compared_algo_results['algorithm_RAM_peak'] / dyn_algo_results['algorithm_RAM_peak'] - 1) * 100,2)} %"}
+                          'parameter_to_maximize': f"{round((compared_algo_results['parameter_to_maximize'] / dyn_algo_results['parameter_to_maximize'] - 1) * 100, 2)} %",
+                          'algorithm_durantion': f"{round((compared_algo_results['algorithm_durantion'] / dyn_algo_results['algorithm_durantion'] - 1) * 100, 2)} %",
+                          'algorithm_RAM_peak': f"{round((compared_algo_results['algorithm_RAM_peak'] / dyn_algo_results['algorithm_RAM_peak'] - 1) * 100, 2)} %"}
 
     display(comparison_results)
