@@ -91,7 +91,6 @@ def get_csv_data(data_csv: str) -> List[Action]:
             result]
 
 
-# Functions
 def get_all_combinations(data):
     """Function that return a list of all combinations of input list items"""
 
@@ -103,32 +102,6 @@ def get_all_combinations(data):
         comb.extend([list(i) for i in list(combinations(data, n)) if list(i)])
 
     return comb
-
-
-def get_portfolio_cost(portfolio):
-    """Function that returns the total value of a portfolio"""
-    # Init
-    portfolio_cost = 0
-    # Iteration
-    for (_, action_cost, _) in portfolio:
-        portfolio_cost += action_cost
-    return portfolio_cost
-
-
-def get_portfolio_benefit_pct(portfolio):
-    """Function that returns the total benefit of a portfolio"""
-    # Init
-    portfolio_value = 0
-    portfolio_cost = get_portfolio_cost(portfolio)
-
-    # Iteration
-    for (_, action_cost, action_benefit_percentage) in portfolio:
-        portfolio_value += action_cost * (1 + action_benefit_percentage / 100)
-
-    # Getting total profit
-    portfolio_benefit_value = portfolio_value - portfolio_cost
-
-    return portfolio_benefit_value
 
 
 # Display functions
@@ -165,7 +138,6 @@ def display_action(action):
               f'{round(action.benefit_value, 2)}'.center(benefit_value_space) + '|' + \
               f'{round(action.efficiency, 2)}'.center(efficiency_space) + '|'
     return display
-
 
 
 if __name__ == '__main__':
