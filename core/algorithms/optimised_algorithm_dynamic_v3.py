@@ -1,65 +1,59 @@
 # Imports
 from typing import List
 from core.model import MAXIMUM_PURCHASE_COST, Portfolio, Action
-from math import ceil as rounded_upp
+from math import ceil
 
 
 def optimised_algorithm_dynamic_v3(actions: List[Action], max_cost: int = MAXIMUM_PURCHASE_COST,
                                    step: int = 5) -> Portfolio:
     """
     Function that returns the best portfolio - dynamic algorithm
-    cf https://fr.wikipedia.org/wiki/Probl%C3%A8me_du_sac_%C3%A0_dos paragraphe Resolution exacte
+    cf https://fr.wikipedia.org/wiki/Probl%C3%A8me_du_sac_%C3%A0_dos paragraphe Resolution exact
     """
 
     # Better Time Performance because of calculating on step interval, and reducing optimised_space
 
     # Init -> O(1)
     actions_count = len(actions)
-    optimised_space = []
     max_cost_idx = (max_cost // step) + 1
+    optimised_space: List[List[Portfolio]] = [[Portfolio(actions=[]) for _ in range(max_cost_idx + 1)] for _ in
+                                              range(actions_count + 1)]
 
     # Iteration -> O(n^2)
     for nb_actions in range(actions_count + 1):
         # nb_actions -> number of actions in portfolio
-        # Create an empty 'row' in optimised_space
-        optimised_space.append([])
         for portfolio_funds_idx in range(max_cost_idx + 1):
             portfolio_funds = portfolio_funds_idx * step
-            # portfolio_funds -> funds value for portfolio to buy in action
-            # Create an empty 'column' in optimised_space[nb_actions]
-            optimised_space[nb_actions].append([])
+            # portfolio_funds -> maximum cost of Portfolio
 
-            # Initialization : empty value for init
+            # Initialization : empty Portfolio for init
             if nb_actions == 0 or portfolio_funds_idx == 0:
                 pass
             else:
                 action = actions[nb_actions - 1]  # current action index = nb_actions - 1
                 # because actions[0] correspond to nb_actions = 1
-                last_best_portfolio = optimised_space[nb_actions - 1][portfolio_funds_idx]
-                last_best_portfolio_without_action_funds = optimised_space[nb_actions - 1][
-                    int((portfolio_funds - rounded_upp(action.cost / step) * step) / step)]
+                previous_portfolio = optimised_space[nb_actions - 1][portfolio_funds_idx]
+                portfolio_without_action_funds = \
+                    optimised_space[nb_actions - 1][portfolio_funds_idx - ceil(action.cost / step)]
+
+                # Init
+                actual_portfolio = previous_portfolio
 
                 if action.cost <= portfolio_funds:
-                    maximized_portfolio_WITH_action = action.parameter_to_maximize + Portfolio(
-                        actions=last_best_portfolio_without_action_funds).parameter_to_maximize
-                    maximized_portfolio_WITHOUT_action = Portfolio(
-                        actions=last_best_portfolio).parameter_to_maximize
+                    # new_portfolio is portfolio_without_action_funds + action
+                    new_portfolio_parameter_to_maximize = \
+                        action.parameter_to_maximize + portfolio_without_action_funds.parameter_to_maximize
 
-                    if maximized_portfolio_WITH_action > maximized_portfolio_WITHOUT_action:
-                        # Create new_best_portfolio with action in there
-                        new_best_portfolio = []
-                        new_best_portfolio.extend(last_best_portfolio_without_action_funds)
-                        new_best_portfolio.extend([action])
-                        optimised_space[nb_actions][portfolio_funds_idx].extend(new_best_portfolio)
+                    if new_portfolio_parameter_to_maximize > previous_portfolio.parameter_to_maximize:
+                        # new portfolio with action in there
+                        new_actions = portfolio_without_action_funds.actions + [action]
+                        actual_portfolio = Portfolio(actions=new_actions)
 
-                    else:
-                        # new_best_portfolio = last_best_portfolio
-                        optimised_space[nb_actions][portfolio_funds_idx].extend(last_best_portfolio)
+                # Filling optimised_space with actual_portfolio
+                optimised_space[nb_actions][portfolio_funds_idx] = actual_portfolio
 
-                else:
-                    # new_best_portfolio = last_best_portfolio
-                    optimised_space[nb_actions][portfolio_funds_idx].extend(last_best_portfolio)
-
-    return Portfolio(actions=optimised_space[actions_count][max_cost_idx - 1])
+    # Result
+    best_portfolio = optimised_space[actions_count][max_cost_idx]
+    return best_portfolio
 
     # Overall Complexity = O(n^2)
