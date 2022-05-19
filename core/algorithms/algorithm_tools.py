@@ -85,12 +85,31 @@ def get_csv_data(data_csv_path: str) -> Portfolio:
 
     # Formatting result
     result = [[action_name, float(action_cost), float(action_profit)]
-              for [action_name, action_cost, action_profit] in data]
+              for [action_name, action_cost, action_profit] in data if data_validator([action_name, action_cost, action_profit])]
 
     return Portfolio(
         actions=[Action(action_name, action_cost, action_performance) for (action_name, action_cost, action_performance)
                  in
                  result])
+
+
+def data_validator(data: List[str]) -> bool:
+    """Function that validate if data is workable or not"""
+
+    result = False
+
+    try:
+        _, action_cost, action_benefit_pct = data
+        if float(action_cost) > 0  and float(action_benefit_pct) > 0:
+            result = True
+    except:
+        pass
+
+    return result
+
+
+
+
 
 
 def get_all_combinations(portfolio: Portfolio) -> List[Portfolio]:
@@ -168,7 +187,7 @@ def display_portfolio(portfolio):
         print(action_display)
 
     print(f'Nombre d\'actions en portefeuille : {len(portfolio.actions)}')
-    print(f'Coût total du portefeuille : {portfolio.cost}')
+    print(f'Coût total du portefeuille : {round(portfolio.cost,2)}')
     print(f'Valeur du portefeuille au bout de 2 ans :'
           f' {round(portfolio.value_after_two_years, 2)}')
     print(f'Valeur du bénéfice : {round(portfolio.benefit_value, 2)}')
