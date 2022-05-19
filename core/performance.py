@@ -5,7 +5,7 @@ from core.algorithms.optimised_algorithm_greedy import optimised_algorithm_greed
 from core.algorithms.optimised_algorithm_dynamic import optimised_algorithm_dynamic as dyn_algo
 from core.algorithms.optimised_algorithm_dynamic_v2 import optimised_algorithm_dynamic_v2 as dyn_algo_v2
 from core.algorithms.algorithm_tools import get_csv_data, get_time_func, get_ram_peak_func
-from core.model import Portfolio
+from core.model import Portfolio, MAXIMUM_PURCHASE_COST
 from matplotlib import pyplot as plt
 
 # CONSTANTS
@@ -73,19 +73,59 @@ def chart_performance_analysis(algorithm: Callable, data_size: int = 20,
     ax.plot(data_number, time_results, color='green')
     ax.set_xlabel('number of data entries (n)', fontsize=14)
     ax.set_ylabel('time (s)', color='green', fontsize=14)
-    ax.legend([f'{algorithm.__name__} : time'])
-
+    ax.set_ylim(ymin=0, ymax=max(time_results) if max(time_results) != 0 else None)
+    ax.legend(['time'], loc='lower center')
 
     ax2 = ax.twinx()
     ax2.plot(data_number, delta_results, color='red')
     ax2.set_ylabel('delta (%)', color='red', fontsize=14)
-    ax2.legend(['delta'])
-
-
+    ax2.legend(['delta'], loc='lower right')
 
     # Plot Formatting
-    plt.title(f'Performance Analysis - n = {data_size}')
+    plt.title(f'Performance Analysis - n = {data_size} \n{algorithm.__name__}')
     plt.grid()
+    plt.show()
+
+
+def dyn_algo_v2_step_performance_analysis(data_size: int = 1000, algo_max_step: int = 5,
+                                          algo_min_step: int = 1, step: int = 1):
+    """Function that return time and delta performance for differents algo_step"""
+
+    # Init
+    algo_steps = list(range(algo_min_step, algo_max_step + 1, step))
+    time_results = []
+    delta_results = []
+    portfolio = Portfolio(actions=PORTFOLIO.actions[:data_size])
+    a2 = dyn_algo(portfolio=portfolio)
+
+    # Iteration
+    for step in algo_steps:
+        time_results.append(get_time_func(dyn_algo_v2)(portfolio=portfolio, step=step))
+        # delta_n is the difference in percentage for parameter_to_maximize between algorithm and dyn_algo
+        a1 = dyn_algo_v2(portfolio=portfolio, step=step)
+        delta_n = - (a1.parameter_to_maximize /
+                     a2.parameter_to_maximize - 1) * 100
+        delta_results.append(delta_n)
+
+    # Plotting
+    fig, ax = plt.subplots()
+    ax.plot(algo_steps, time_results, color='green')
+    ax.set_xlabel('number of data entries (n)', fontsize=14)
+    ax.set_ylabel('time (s)', color='green', fontsize=14)
+    ax.set_ylim(ymin=0, ymax=max(time_results) if max(time_results) != 0 else None)
+    ax.set_xlim(xmin=algo_min_step)
+    ax.legend(['time'], loc='lower center')
+    ax.grid(axis="x")
+
+    ax2 = ax.twinx()
+    ax2.plot(algo_steps, delta_results, color='red')
+    ax2.set_ylabel('delta (%)', color='red', fontsize=14)
+    ax2.legend(['delta'], loc='lower right')
+    ax2.grid(axis="y")
+
+    # Plot Formatting
+    plt.title(f'Algorithm Step Performance Analysis - n = {data_size} - fonds = {MAXIMUM_PURCHASE_COST} \n{dyn_algo_v2.__name__}')
+    plt.xticks(list(range(algo_min_step,algo_max_step + 1)))
     plt.show()
 
 
