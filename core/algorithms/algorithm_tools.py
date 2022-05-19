@@ -106,6 +106,53 @@ def get_all_combinations(portfolio: Portfolio) -> List[Portfolio]:
     return comb
 
 
+def display_data_report(data_csv_path: str):
+    """Function to show report of data in data_csv_path"""
+
+    # Init
+    data = []
+
+    # CSV reader
+    with open(data_csv_path, newline='') as csvfile:
+        data_reader = csv.reader(csvfile, delimiter=',')
+        next(data_reader)
+        for row in data_reader:
+            data.append(row)
+
+    # Formatting data
+    data = [[action_name, float(action_cost), float(action_profit)]
+            for [action_name, action_cost, action_profit] in data]
+
+    actions_cost_null = [[action_name, action_cost, action_benefit_pct] for
+                         [action_name, action_cost, action_benefit_pct] in data if action_cost == 0]
+
+    actions_negative_cost = [[action_name, action_cost, action_benefit_pct] for
+                             [action_name, action_cost, action_benefit_pct] in data if action_cost < 0]
+
+    actions_benefit_null = [[action_name, action_cost, action_benefit_pct] for
+                            [action_name, action_cost, action_benefit_pct] in data if action_benefit_pct == 0]
+
+    actions_negative_benefit = [[action_name, action_cost, action_benefit_pct] for
+                                [action_name, action_cost, action_benefit_pct] in data if action_benefit_pct < 0]
+
+    data_unworkable_count = len(actions_cost_null) \
+                            + len(actions_negative_cost) \
+                            + len(actions_benefit_null) \
+                            + len(actions_negative_benefit)
+
+    display_message = f"Rapport d'exploration de l'ensemble des données :\n" \
+                      f"Actions : {len(data)}\n" \
+                      f"Actions coût nul : {len(actions_cost_null)}\n" \
+                      f"Actions coût strictement négatif : {len(actions_negative_cost)}\n" \
+                      f"Actions bénéfice nul : {len(actions_benefit_null)}\n" \
+                      f"Actions bénéfice striquement négatif : {len(actions_negative_benefit)}\n" \
+                      f"-------------------------------\n" \
+                      f"Actions inexploitables : {data_unworkable_count}" \
+                      f" / soit une part de {round(data_unworkable_count / len(data) * 100, 2)} %"
+
+    print(display_message)
+
+
 # Display functions
 def display_portfolio(portfolio):
     """Function that display nicely portfolio content"""
