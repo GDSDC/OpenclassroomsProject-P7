@@ -4,7 +4,6 @@ from core.algorithms.optimised_algorithm_greedy import optimised_algorithm_greed
 from core.algorithms.optimised_algorithm_dynamic import optimised_algorithm_dynamic
 from core.algorithms.optimised_algorithm_dynamic_v2 import optimised_algorithm_dynamic_v2
 from core.algorithms.algorithm_tools import display_portfolio, get_csv_data
-from core.model import Portfolio
 import sys
 
 # CONSTANTS
@@ -35,10 +34,10 @@ if __name__ == '__main__':
     print('')
 
     algo_name = sys.argv[1] if len(sys.argv) > 1 else DEFAULT_ALGORITHM
-    algorithm = ALGORITHM_PROVIDER[algo_name]
+    algorithm_to_run = ALGORITHM_PROVIDER[algo_name]
 
     csv_path = sys.argv[2] if len(sys.argv) > 2 else ACTIONS_DATA_CSV
-    portfolio: Portfolio = get_csv_data(csv_path)
+    portfolio_to_optimize = get_csv_data(csv_path)
 
-    display_best_portfolio(algorithm, portfolio)
+    display_best_portfolio(algorithm=algorithm_to_run, portfolio=portfolio_to_optimize)
     print('')
