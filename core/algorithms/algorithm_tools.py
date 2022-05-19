@@ -4,7 +4,7 @@ import csv
 from itertools import combinations
 from time import time
 import tracemalloc
-from core.model import Action
+from core.model import Action, Portfolio
 
 # DISPLAY CONSTANTS
 DISPLAY_HEADER = ['Nom de l\'Action', 'Coût', 'Bénéfice %', 'Bénéfice value', 'Efficacité']
@@ -70,7 +70,7 @@ def get_ram_peak_func(func):
 
 
 # Functions
-def get_csv_data(data_csv: str) -> List[Action]:
+def get_csv_data(data_csv: str) -> Portfolio:
     """Function to get data from CSV file"""
 
     # Init
@@ -87,19 +87,21 @@ def get_csv_data(data_csv: str) -> List[Action]:
     result = [[action_name, float(action_cost), float(action_profit)]
               for [action_name, action_cost, action_profit] in data]
 
-    return [Action(action_name, action_cost, action_performance) for (action_name, action_cost, action_performance) in
-            result]
+    return Portfolio(
+        actions=[Action(action_name, action_cost, action_performance) for (action_name, action_cost, action_performance)
+                 in
+                 result])
 
 
-def get_all_combinations(data):
+def get_all_combinations(portfolio: Portfolio) -> List[Portfolio]:
     """Function that return a list of all combinations of input list items"""
 
     # Init
     comb = []
 
     # Get all Combinations
-    for n in range(0, len(data) + 1):
-        comb.extend([list(i) for i in list(combinations(data, n)) if list(i)])
+    for n in range(0, len(portfolio.actions) + 1):
+        comb.extend([Portfolio(actions=list(i)) for i in list(combinations(portfolio.actions, n))])
 
     return comb
 

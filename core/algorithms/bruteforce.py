@@ -1,19 +1,17 @@
 # Imports
-from typing import List
 from core.algorithms.algorithm_tools import get_all_combinations
-from core.model import MAXIMUM_PURCHASE_COST, Portfolio, Action
+from core.model import MAXIMUM_PURCHASE_COST, Portfolio
 
 
 # Bruteforce algorithm
-def bruteforce_algorithm(actions: List[Action], max_cost: int = MAXIMUM_PURCHASE_COST) -> Portfolio:
+def bruteforce_algorithm(portfolio: Portfolio, max_cost: int = MAXIMUM_PURCHASE_COST) -> Portfolio:
     """Function that gets the best portfolio"""
 
     # Generate all combinations of portfolios / O(2^n)
-    portfolios = get_all_combinations(actions)
+    portfolios = get_all_combinations(portfolio)
 
     # Filter portfolios witch total value is under MAXIMUM_PURCHASE_VALUE / O(2^n)
-    portfolios_under_max_cost = [Portfolio(actions=portfolio) for portfolio in portfolios if
-                                 sum([action.cost for action in portfolio]) <= max_cost]
+    portfolios_under_max_cost = [portfolio for portfolio in portfolios if portfolio.cost <= max_cost]
 
     # Sort them by total benefit /  O(n*log(n))
     portfolios_under_max_cost_sorted = sorted(portfolios_under_max_cost,

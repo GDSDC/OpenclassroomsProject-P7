@@ -1,17 +1,17 @@
 # Imports
 from typing import List
-from core.model import MAXIMUM_PURCHASE_COST, Portfolio, Action
+from core.model import MAXIMUM_PURCHASE_COST, Portfolio
 from math import ceil
 
 
-def optimised_algorithm_dynamic(actions: List[Action], max_cost: int = MAXIMUM_PURCHASE_COST) -> Portfolio:
+def optimised_algorithm_dynamic(portfolio: Portfolio, max_cost: int = MAXIMUM_PURCHASE_COST) -> Portfolio:
     """
     Function that returns the best portfolio - dynamic algorithm
     cf https://fr.wikipedia.org/wiki/Probl%C3%A8me_du_sac_%C3%A0_dos paragraphe Resolution exact
     """
 
     # Init -> O(1)
-    actions_count = len(actions)
+    actions_count = len(portfolio.actions)
     # Creating result array initialized with empty Portfolios
     optimised_space: List[List[Portfolio]] = [[Portfolio(actions=[]) for _ in range(max_cost + 1)] for _ in
                                               range(actions_count + 1)]
@@ -26,7 +26,7 @@ def optimised_algorithm_dynamic(actions: List[Action], max_cost: int = MAXIMUM_P
             if nb_actions == 0 or portfolio_funds == 0:
                 pass
             else:
-                action = actions[nb_actions - 1]  # current action index = nb_actions - 1
+                action = portfolio.actions[nb_actions - 1]  # current action index = nb_actions - 1
                 # because actions[0] correspond to nb_actions = 1
                 previous_portfolio = optimised_space[nb_actions - 1][portfolio_funds]
                 portfolio_without_action_funds = optimised_space[nb_actions - 1][portfolio_funds - ceil(action.cost)]
