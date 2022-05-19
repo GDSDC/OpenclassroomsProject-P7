@@ -15,7 +15,7 @@ def optimised_algorithm_dynamic_v2(portfolio: Portfolio, max_cost: int = MAXIMUM
 
     # Init -> O(1)
     actions_count = len(portfolio.actions)
-    max_cost_idx = (max_cost // step) + 1
+    max_cost_idx = max_cost // step
     optimised_space: List[List[Portfolio]] = [[Portfolio(actions=[]) for _ in range(max_cost_idx + 1)] for _ in
                                               range(actions_count + 1)]
 
