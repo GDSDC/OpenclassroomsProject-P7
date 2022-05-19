@@ -4,7 +4,7 @@ from core.model import MAXIMUM_PURCHASE_COST, Portfolio
 from math import ceil
 
 
-def optimised_algorithm_dynamic_v3(portfolio: Portfolio, max_cost: int = MAXIMUM_PURCHASE_COST,
+def optimised_algorithm_dynamic_v2(portfolio: Portfolio, max_cost: int = MAXIMUM_PURCHASE_COST,
                                    step: int = 5) -> Portfolio:
     """
     Function that returns the best portfolio - dynamic algorithm
