@@ -70,14 +70,14 @@ def get_ram_peak_func(func):
 
 
 # Functions
-def get_csv_data(data_csv: str) -> Portfolio:
+def get_csv_data(data_csv_path: str) -> Portfolio:
     """Function to get data from CSV file"""
 
     # Init
     data = []
 
     # CSV reader
-    with open(data_csv, newline='') as csvfile:
+    with open(data_csv_path, newline='') as csvfile:
         data_reader = csv.reader(csvfile, delimiter=',')
         next(data_reader)
         for row in data_reader:

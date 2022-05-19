@@ -5,11 +5,12 @@ from core.algorithms.optimised_algorithm_greedy import optimised_algorithm_greed
 from core.algorithms.optimised_algorithm_dynamic import optimised_algorithm_dynamic as dyn_algo
 from core.algorithms.optimised_algorithm_dynamic_v2 import optimised_algorithm_dynamic_v2 as dyn_algo_v2
 from core.algorithms.algorithm_tools import get_csv_data, get_time_func, get_ram_peak_func
+from core.model import Portfolio
 from matplotlib import pyplot as plt
 
 # CONSTANTS
-ACTIONS_DATA_CSV = 'resources/Actions_data/Performance_data/data.csv'
-ACTIONS_DATA = get_csv_data(ACTIONS_DATA_CSV)
+ACTIONS_DATA_CSV_PATH = 'resources/Actions_data/Performance_data/data.csv'
+PORTFOLIO = get_csv_data(ACTIONS_DATA_CSV_PATH)
 # ANALYSIS
 time = {'function': get_time_func, 'title': 'Time Performance Analysis', 'ylabel': 'Time (s)'}
 ram = {'function': get_ram_peak_func, 'title': 'RAM Performance Analysis', 'ylabel': 'RAM Peak (MB)'}
@@ -30,7 +31,8 @@ def chart_performance_analysis(analysis: Dict[str, Any], algorithms: List[Callab
     # Iteration
     for algorithm in algorithms:
         for n in data_number:
-            results[algorithm.__name__].append(analysis_function(algorithm)(actions=ACTIONS_DATA[:n]))
+            results[algorithm.__name__].append(
+                analysis_function(algorithm)(portfolio=Portfolio(actions=PORTFOLIO.actions[:n])))
 
     # Plotting
     for algorithm in algorithms:
@@ -61,15 +63,15 @@ RAM peak : {x['algorithm_RAM_peak']} MB
     # Dynamic algorithm details
     dyn_algo_results = {'algorithm_name': 'optimised_algorithm_dynamic',
                         'parameter_to_maximize': 245,
-                        'algorithm_durantion': 2.43,
-                        'algorithm_RAM_peak': 63.39}
+                        'algorithm_durantion': 2.92,
+                        'algorithm_RAM_peak': 108.53}
 
     display(dyn_algo_results)
 
     # Compared algorithm details
-    compared_algo_duration = get_time_func(algorithm)(actions=ACTIONS_DATA[:data_size])
-    compared_algo_ram_peak = get_ram_peak_func(algorithm)(actions=ACTIONS_DATA[:data_size])
-    compared_algo_parameter_to_maximize = round(algorithm(actions=ACTIONS_DATA[:data_size]).parameter_to_maximize, 2)
+    compared_algo_duration = get_time_func(algorithm)(portfolio=Portfolio(actions=PORTFOLIO.actions[:data_size]))
+    compared_algo_ram_peak = get_ram_peak_func(algorithm)(portfolio=Portfolio(actions=PORTFOLIO.actions[:data_size]))
+    compared_algo_parameter_to_maximize = round(algorithm(portfolio=Portfolio(actions=PORTFOLIO.actions[:data_size])).parameter_to_maximize, 2)
 
     compared_algo_results = {'algorithm_name': algorithm.__name__,
                              'parameter_to_maximize': compared_algo_parameter_to_maximize,
