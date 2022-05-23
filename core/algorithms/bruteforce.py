@@ -13,15 +13,10 @@ def bruteforce_algorithm(portfolio: Portfolio, max_cost: int = MAXIMUM_PURCHASE_
     # Filter portfolios witch total value is under MAXIMUM_PURCHASE_VALUE / O(2^n)
     portfolios_under_max_cost = [portfolio for portfolio in portfolios if portfolio.cost <= max_cost]
 
-    # Sort them by total benefit /  O(n*log(n))
-    portfolios_under_max_cost_sorted = sorted(portfolios_under_max_cost,
-                                              key=lambda x: x.parameter_to_maximize,
-                                              reverse=True)
+    # Best portfolio / O(2^n)
+    return max(portfolios_under_max_cost, key=lambda x: x.parameter_to_maximize)
 
-    # Best portfolio / O(n) ??
-    return portfolios_under_max_cost_sorted[0]
-
-    # Overall Complexity = 2 * O(2^n) + O(n*log(n)) + O(n) => O(2^n)
+    # Overall Complexity = 3 * O(2^n) => O(2^n)
 
 
 if __name__ == '__main__':
