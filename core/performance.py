@@ -17,8 +17,7 @@ ram = {'function': get_ram_peak_func, 'title': 'RAM Performance Analysis', 'ylab
 
 
 def chart_performance_comparison(analysis: Dict[str, Any], algorithms: List[Callable], data_size: int = 20,
-                                 data_step: int = 1,
-                                 xscale: str = 'linear'):
+                                 data_step: int = 1):
     """Function that return a plot with performance of the algorithms"""
 
     # Init
@@ -44,7 +43,6 @@ def chart_performance_comparison(analysis: Dict[str, Any], algorithms: List[Call
     plt.title(f'{analysis["title"]} - n={data_size}')
     plt.legend([algorithm.__name__ for algorithm in algorithms])
     plt.grid()
-    plt.xscale = xscale
     plt.show()
 
 
