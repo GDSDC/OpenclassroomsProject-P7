@@ -108,7 +108,7 @@ def dyn_algo_v2_step_performance_analysis(data_size: int = 1000, algo_max_step: 
     # Plotting
     fig, ax = plt.subplots()
     ax.plot(algo_steps, time_results, color='green')
-    ax.set_xlabel('number of data entries (n)', fontsize=14)
+    ax.set_xlabel('Algorithm Step value', fontsize=14)
     ax.set_ylabel('time (s)', color='green', fontsize=14)
     ax.set_ylim(ymin=0, ymax=max(time_results) if max(time_results) != 0 else None)
     ax.set_xlim(xmin=algo_min_step)
