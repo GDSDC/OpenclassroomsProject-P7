@@ -3,7 +3,6 @@ from core.algorithms.bruteforce import bruteforce_algorithm
 from core.algorithms.optimised_algorithm_greedy import optimised_algorithm_greedy
 from core.algorithms.optimised_algorithm_dynamic import optimised_algorithm_dynamic
 from core.algorithms.optimised_algorithm_dynamic_v2 import optimised_algorithm_dynamic_v2
-from core.algorithms.optimised_algorithm_v3 import optimised_algorithm_v3
 from core.algorithms.algorithm_tools import display_portfolio, get_csv_data
 import sys
 
@@ -15,19 +14,18 @@ ALGORITHM_PROVIDER = {
     'bf_algo': bruteforce_algorithm,
     'greedy_algo': optimised_algorithm_greedy,
     'dyn_algo': optimised_algorithm_dynamic,
-    'dyn_algo_v2': optimised_algorithm_dynamic_v2,
-    'opt_algo_v3' : optimised_algorithm_v3
+    'dyn_algo_v2': optimised_algorithm_dynamic_v2
 }
 
 
 # DISPLAY MAIN FUNCTION
-def display_best_portfolio(algorithm, portfolio):
+def display_best_portfolio(algorithm, actions):
     """Function that run algorithm and display the result"""
     # Header
     print(f'//  {algorithm.__name__}  //')
     print('Voici le meilleur portefeuille d\'investissement !')
     # Run the algorithm
-    result = algorithm(portfolio)
+    result = algorithm(actions)
     # Display result
     display_portfolio(result)
 
@@ -39,7 +37,7 @@ if __name__ == '__main__':
     algorithm_to_run = ALGORITHM_PROVIDER[algo_name]
 
     csv_path = sys.argv[2] if len(sys.argv) > 2 else ACTIONS_DATA_CSV
-    portfolio_to_optimize = get_csv_data(csv_path)
+    actions = get_csv_data(csv_path)
 
-    display_best_portfolio(algorithm=algorithm_to_run, portfolio=portfolio_to_optimize)
+    display_best_portfolio(algorithm=algorithm_to_run, actions=actions)
     print('')

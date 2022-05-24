@@ -1,5 +1,5 @@
 # Imports
-from typing import List
+from typing import List, Tuple
 import csv
 from itertools import combinations
 from time import time
@@ -21,7 +21,7 @@ def timer_func(func):
         t1 = time()
         result = func(*args, **kwargs)
         t2 = time()
-        print(f'Function {func.__name__!r} executed in {round(t2 - t1,2)}s')
+        print(f'Function {func.__name__!r} executed in {round(t2 - t1, 2)}s')
         return result
 
     return wrap_func
@@ -70,7 +70,7 @@ def get_ram_peak_func(func):
 
 
 # Functions
-def get_csv_data(data_csv_path: str) -> Portfolio:
+def get_csv_data(data_csv_path: str) -> List[Action]:
     """Function to get data from CSV file"""
 
     # Init
@@ -84,23 +84,20 @@ def get_csv_data(data_csv_path: str) -> Portfolio:
             data.append(row)
 
     # Formatting result
-    result = [[action_name, float(action_cost), float(action_profit)]
-              for [action_name, action_cost, action_profit] in data if data_validator([action_name, action_cost, action_profit])]
+    result = [Action(action_name, float(action_cost), float(action_profit))
+              for action_name, action_cost, action_profit in data if
+              data_validate(action_cost, action_profit)]
 
-    return Portfolio(
-        actions=[Action(action_name, action_cost, action_performance) for (action_name, action_cost, action_performance)
-                 in
-                 result])
+    return result
 
 
-def data_validator(data: List[str]) -> bool:
+def data_validate(action_cost: str, action_profit: str) -> bool:
     """Function that validate if data is workable or not"""
 
     result = False
 
     try:
-        _, action_cost, action_benefit_pct = data
-        if float(action_cost) > 0  and float(action_benefit_pct) > 0:
+        if float(action_cost) > 0 and float(action_profit) > 0:
             result = True
     except:
         pass
@@ -108,19 +105,15 @@ def data_validator(data: List[str]) -> bool:
     return result
 
 
-
-
-
-
-def get_all_combinations(portfolio: Portfolio) -> List[Portfolio]:
+def get_all_combinations(actions: List[Action]) -> List[Portfolio]:
     """Function that return a list of all combinations of input list items"""
 
     # Init
     comb = []
 
     # Get all Combinations
-    for n in range(0, len(portfolio.actions) + 1):
-        comb.extend([Portfolio(actions=list(i)) for i in list(combinations(portfolio.actions, n))])
+    for n in range(0, len(actions) + 1):
+        comb.extend([Portfolio(actions=list(i)) for i in list(combinations(actions, n))])
 
     return comb
 
@@ -187,7 +180,7 @@ def display_portfolio(portfolio):
         print(action_display)
 
     print(f'Nombre d\'actions en portefeuille : {len(portfolio.actions)}')
-    print(f'Coût total du portefeuille : {round(portfolio.cost,2)}')
+    print(f'Coût total du portefeuille : {round(portfolio.cost, 2)}')
     print(f'Valeur du portefeuille au bout de 2 ans :'
           f' {round(portfolio.value_after_two_years, 2)}')
     print(f'Valeur du bénéfice : {round(portfolio.benefit_value, 2)}')

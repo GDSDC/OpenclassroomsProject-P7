@@ -10,7 +10,7 @@ from matplotlib import pyplot as plt
 
 # CONSTANTS
 ACTIONS_DATA_CSV_PATH = 'resources/Actions_data/Performance_data/data.csv'
-PORTFOLIO = get_csv_data(ACTIONS_DATA_CSV_PATH)
+ACTIONS = get_csv_data(ACTIONS_DATA_CSV_PATH)
 # ANALYSIS
 time = {'function': get_time_func, 'title': 'Time Performance Analysis', 'ylabel': 'Time (s)'}
 ram = {'function': get_ram_peak_func, 'title': 'RAM Performance Analysis', 'ylabel': 'RAM Peak (MB)'}
@@ -30,8 +30,7 @@ def chart_performance_comparison(analysis: Dict[str, Any], algorithms: List[Call
     # Iteration
     for algorithm in algorithms:
         for n in data_number:
-            results[algorithm.__name__].append(
-                analysis_function(algorithm)(portfolio=Portfolio(actions=PORTFOLIO.actions[:n])))
+            results[algorithm.__name__].append(analysis_function(algorithm)(actions=ACTIONS[:n]))
 
     # Plotting
     for algorithm in algorithms:
@@ -57,11 +56,10 @@ def chart_performance_analysis(algorithm: Callable, data_size: int = 20,
 
     # Iteration
     for n in data_number:
-        portfolio_n = Portfolio(actions=PORTFOLIO.actions[:n])
-        time_results.append(get_time_func(algorithm)(portfolio=portfolio_n))
+        time_results.append(get_time_func(algorithm)(actions=ACTIONS[:n]))
         # delta_n is the difference in percentage for parameter_to_maximize between algorithm and dyn_algo
-        a1 = algorithm(portfolio=portfolio_n)
-        a2 = dyn_algo(portfolio=portfolio_n)
+        a1 = algorithm(actions=ACTIONS[:n])
+        a2 = dyn_algo(actions=ACTIONS[:n])
         delta_n = - (a1.parameter_to_maximize /
                      a2.parameter_to_maximize - 1) * 100
         delta_results.append(delta_n)
@@ -93,14 +91,13 @@ def dyn_algo_v2_step_performance_analysis(data_size: int = 1000, algo_max_step: 
     algo_steps = list(range(algo_min_step, algo_max_step + 1, step))
     time_results = []
     delta_results = []
-    portfolio = Portfolio(actions=PORTFOLIO.actions[:data_size])
-    a2 = dyn_algo(portfolio=portfolio)
+    a2 = dyn_algo(actions=ACTIONS[:data_size])
 
     # Iteration
     for step in algo_steps:
-        time_results.append(get_time_func(dyn_algo_v2)(portfolio=portfolio, step=step))
+        time_results.append(get_time_func(dyn_algo_v2)(actions=ACTIONS[:data_size], step=step))
         # delta_n is the difference in percentage for parameter_to_maximize between algorithm and dyn_algo
-        a1 = dyn_algo_v2(portfolio=portfolio, step=step)
+        a1 = dyn_algo_v2(actions=ACTIONS[:data_size], step=step)
         delta_n = - (a1.parameter_to_maximize /
                      a2.parameter_to_maximize - 1) * 100
         delta_results.append(delta_n)
@@ -108,7 +105,7 @@ def dyn_algo_v2_step_performance_analysis(data_size: int = 1000, algo_max_step: 
     # Plotting
     fig, ax = plt.subplots()
     ax.plot(algo_steps, time_results, color='green')
-    ax.set_xlabel('number of data entries (n)', fontsize=14)
+    ax.set_xlabel('Algorithm Step Value', fontsize=14)
     ax.set_ylabel('time (s)', color='green', fontsize=14)
     ax.set_ylim(ymin=0, ymax=max(time_results) if max(time_results) != 0 else None)
     ax.set_xlim(xmin=algo_min_step)
@@ -122,8 +119,10 @@ def dyn_algo_v2_step_performance_analysis(data_size: int = 1000, algo_max_step: 
     ax2.grid(axis="y")
 
     # Plot Formatting
-    plt.title(f'Algorithm Step Performance Analysis - n = {data_size} - fonds = {MAXIMUM_PURCHASE_COST} \n{dyn_algo_v2.__name__}')
-    plt.xticks(list(range(algo_min_step,algo_max_step + 1)))
+    plt.title(
+        f'Algorithm Step Performance Analysis - n = {data_size} - '
+        f'fonds = {MAXIMUM_PURCHASE_COST} \n{dyn_algo_v2.__name__}')
+    plt.xticks(list(range(algo_min_step, algo_max_step + 1)))
     plt.show()
 
 
@@ -148,10 +147,10 @@ RAM peak : {x['algorithm_RAM_peak']} MB
     display(dyn_algo_results)
 
     # Compared algorithm details
-    compared_algo_duration = get_time_func(algorithm)(portfolio=Portfolio(actions=PORTFOLIO.actions[:data_size]))
-    compared_algo_ram_peak = get_ram_peak_func(algorithm)(portfolio=Portfolio(actions=PORTFOLIO.actions[:data_size]))
+    compared_algo_duration = get_time_func(algorithm)(actions=ACTIONS[:data_size])
+    compared_algo_ram_peak = get_ram_peak_func(algorithm)(actions=ACTIONS[:data_size])
     compared_algo_parameter_to_maximize = round(
-        algorithm(portfolio=Portfolio(actions=PORTFOLIO.actions[:data_size])).parameter_to_maximize, 2)
+        algorithm(actions=ACTIONS[:data_size]).parameter_to_maximize, 2)
 
     compared_algo_results = {'algorithm_name': algorithm.__name__,
                              'parameter_to_maximize': compared_algo_parameter_to_maximize,
