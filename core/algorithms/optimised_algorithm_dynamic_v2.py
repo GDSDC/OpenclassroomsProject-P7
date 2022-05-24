@@ -15,13 +15,13 @@ def optimised_algorithm_dynamic_v2(actions: List[Action], max_cost: int = MAXIMU
 
     # Better Time Performance because of calculating on step interval, and reducing optimised_space
 
-    # Init -> O(1)
+    # Init -> / O(n*m) => O(n)
     actions_count = len(actions)
     max_cost_idx = max_cost // step
     optimised_space: List[List[Portfolio]] = [[Portfolio(actions=[]) for _ in range(max_cost_idx + 1)] for _ in
                                               range(actions_count + 1)]
 
-    # Iteration -> O(n^2)
+    # Iteration / O(n*m) => O(n)
     for nb_actions in range(actions_count + 1):
         # nb_actions -> number of actions in portfolio
         for portfolio_funds_idx in range(max_cost_idx + 1):
@@ -54,7 +54,7 @@ def optimised_algorithm_dynamic_v2(actions: List[Action], max_cost: int = MAXIMU
                 # Filling optimised_space with actual_portfolio
                 optimised_space[nb_actions][portfolio_funds_idx] = actual_portfolio
 
-    # Result
+    # Result / O(1)
     return optimised_space[actions_count][max_cost_idx]
 
-    # Overall Complexity = O(n^2)
+    # Overall Complexity => O(n) : Linear

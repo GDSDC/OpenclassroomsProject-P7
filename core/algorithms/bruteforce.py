@@ -10,13 +10,13 @@ def bruteforce_algorithm(actions: List[Action], max_cost: int = MAXIMUM_PURCHASE
     # Generate all combinations of portfolios / O(2^n)
     portfolios = get_all_combinations(actions)
 
-    # Filter portfolios witch total value is under MAXIMUM_PURCHASE_VALUE / O(2^n)
+    # Filter portfolios witch total value is under MAXIMUM_PURCHASE_VALUE / O(n)
     portfolios_under_max_cost = [portfolio for portfolio in portfolios if portfolio.cost <= max_cost]
 
-    # Result / O(2^n)
+    # Result / O(n)
     return max(portfolios_under_max_cost, key=lambda x: x.parameter_to_maximize)
 
-    # Overall Complexity = 3 * O(2^n) => O(2^n)
+    # Overall Complexity => O(2^n) : Exponential
 
 
 if __name__ == '__main__':

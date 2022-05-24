@@ -12,7 +12,7 @@ def optimised_algorithm_greedy(actions: List[Action], max_cost: int = MAXIMUM_PU
     # Get actions under maximum cost / O(n)
     actions_under_max_cost = [action for action in actions if action.cost <= max_cost]
 
-    # Sort them by descending action efficiency /  O(n*log(n))
+    # Sort them by descending action efficiency /  O(n*log2(n))
     actions_sorted_under_max_cost = sorted(actions_under_max_cost, key=lambda x: x.efficiency, reverse=True)
 
     # Sum action until total cost <= 500 / O(n)
@@ -26,7 +26,7 @@ def optimised_algorithm_greedy(actions: List[Action], max_cost: int = MAXIMUM_PU
     # Result / O(1)
     return best_portfolio
 
-    # Overall Complexity = 2 * O(n) + O(1) + O(n*log(n)) => O(n*log(n))
+    # Overall Complexity => O(n*log2(n)) : Log2 Linear
 
 
 if __name__ == '__main__':

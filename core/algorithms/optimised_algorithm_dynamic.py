@@ -10,13 +10,13 @@ def optimised_algorithm_dynamic(actions: List[Action], max_cost: int = MAXIMUM_P
     cf https://fr.wikipedia.org/wiki/Probl%C3%A8me_du_sac_%C3%A0_dos paragraphe Resolution exact
     """
 
-    # Init -> O(1)
+    # Init / O(n*m) => O(n)
     actions_count = len(actions)
     # Creating result array initialized with empty Portfolios
     optimised_space: List[List[Portfolio]] = [[Portfolio(actions=[]) for _ in range(max_cost + 1)] for _ in
                                               range(actions_count + 1)]
 
-    # Iteration -> O(n^2)
+    # Iteration / O(n*m) => O(n)
     for nb_actions in range(actions_count + 1):
         # nb_actions -> number of actions in portfolio
         for portfolio_funds in range(max_cost + 1):
@@ -47,7 +47,7 @@ def optimised_algorithm_dynamic(actions: List[Action], max_cost: int = MAXIMUM_P
                 # Filling optimised_space with actual_portfolio
                 optimised_space[nb_actions][portfolio_funds] = actual_portfolio
 
-    # Result
+    # Result / O(1)
     return optimised_space[actions_count][max_cost]
 
-    # Overall Complexity = O(n^2)
+    # Overall Complexity => O(n) : Linear
