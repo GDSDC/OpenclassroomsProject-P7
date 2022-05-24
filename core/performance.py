@@ -129,3 +129,26 @@ RAM peak : {x['algorithm_RAM_peak']} MB
                           'algorithm_RAM_peak': f"{round((compared_algo_results['algorithm_RAM_peak'] / dyn_algo_results['algorithm_RAM_peak'] - 1) * 100, 2)} %"}
 
     display(comparison_results)
+
+
+def linear_vs_exponetial_comparison(n: int = 100):
+    """Function that shows a comparison graph between linear and exponetial complexity"""
+
+    # Init
+    data = list(range(n + 1))
+
+    # Results
+    linear_results = [i for i in data]
+    exponential_results = [2 ** i for i in data]
+
+    # Plotting
+    plt.plot(data, linear_results, color='green')
+    plt.plot(data, exponential_results, color='red')
+    plt.legend(['Linear - O(n)', 'Exponential - O(2^n)'])
+    plt.title('Linear vs Exponetial : Complexity comparison')
+    plt.ylabel('Complexity')
+    plt.xlabel('number of data entries (n)')
+    plt.ylim(ymax=n,ymin=0)
+    plt.grid()
+    plt.show()
+
