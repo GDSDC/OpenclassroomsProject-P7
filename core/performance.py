@@ -148,7 +148,7 @@ def linear_vs_exponetial_comparison(n: int = 100):
     plt.title('Linear vs Exponetial : Complexity comparison')
     plt.ylabel('Complexity')
     plt.xlabel('number of data entries (n)')
-    plt.ylim(ymax=n,ymin=0)
+    plt.ylim(ymax=2 ** n, ymin=0)
+    plt.xlim(xmax=n, xmin=0)
     plt.grid()
     plt.show()
-

@@ -13,3 +13,6 @@ result_2_actions_name = ['Share-ECAQ', 'Share-IXCI', 'Share-FWBE', 'Share-ZOFA',
 
 portfolio_1_result = Portfolio(actions=[action for action in ACTIONS_1 if action.name in result_1_actions_name])
 portfolio_2_result = Portfolio(actions=[action for action in ACTIONS_2 if action.name in result_2_actions_name])
+
+if __name__ == '__main__':
+    pass
