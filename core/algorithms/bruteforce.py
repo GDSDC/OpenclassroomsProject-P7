@@ -3,6 +3,7 @@ from core.algorithms.algorithm_tools import get_all_combinations
 from core.model import MAXIMUM_PURCHASE_COST, Portfolio, Action
 from typing import List
 
+
 # Bruteforce algorithm
 def bruteforce_algorithm(actions: List[Action], max_cost: int = MAXIMUM_PURCHASE_COST) -> Portfolio:
     """Function that gets the best portfolio"""

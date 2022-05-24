@@ -4,8 +4,6 @@ from core.model import MAXIMUM_PURCHASE_COST, Portfolio, Action
 from math import ceil
 
 
-
-
 def optimised_algorithm_dynamic_v2(actions: List[Action], max_cost: int = MAXIMUM_PURCHASE_COST,
                                    step: int = 5) -> Portfolio:
     """

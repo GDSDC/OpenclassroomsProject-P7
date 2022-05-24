@@ -16,6 +16,7 @@ DISPLAY_COLUMN_WIDTH = [len(header) + 2 * DISPLAY_HEADER_WHITE_SPACE for header 
 # Timing Decorator
 def timer_func(func):
     """This function shows the execution time of the function object passed"""
+
     def wrap_func(*args, **kwargs):
         t1 = time()
         result = func(*args, **kwargs)
@@ -29,6 +30,7 @@ def timer_func(func):
 # Get Timing Decorator
 def get_time_func(func):
     """This function output the execution time of the function object passed"""
+
     def wrap_func(*args, **kwargs):
         t1 = time()
         func(*args, **kwargs)
@@ -42,6 +44,7 @@ def get_time_func(func):
 # RAM Allocation Decorator
 def ram_func(func):
     """This function shows the CPU Peak of the function object passed"""
+
     def wrap_func(*args, **kwargs):
         tracemalloc.start()
         result = func(*args, **kwargs)
@@ -58,6 +61,7 @@ def ram_func(func):
 # Get RAM peak Decorator
 def get_ram_peak_func(func):
     """This function output the CPU Peak of the function object passed"""
+
     def wrap_func(*args, **kwargs):
         tracemalloc.start()
         func(*args, **kwargs)

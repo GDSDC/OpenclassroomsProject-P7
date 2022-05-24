@@ -2,6 +2,7 @@
 from core.model import MAXIMUM_PURCHASE_COST, Portfolio, Action
 from typing import List
 
+
 # Optimised algorithm v1_4 -> Greedy algorithm
 def optimised_algorithm_greedy(actions: List[Action], max_cost: int = MAXIMUM_PURCHASE_COST) -> Portfolio:
     """Function that gets the best portfolio"""
