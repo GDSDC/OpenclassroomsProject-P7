@@ -12,11 +12,10 @@ DISPLAY_HEADER_WHITE_SPACE = 2
 DISPLAY_COLUMN_WIDTH = [len(header) + 2 * DISPLAY_HEADER_WHITE_SPACE for header in DISPLAY_HEADER]
 
 
-# FUNCTIONS
+# DECORATORS
 # Timing Decorator
 def timer_func(func):
-    # This function shows the execution time of
-    # the function object passed
+    """This function shows the execution time of the function object passed"""
     def wrap_func(*args, **kwargs):
         t1 = time()
         result = func(*args, **kwargs)
@@ -29,8 +28,7 @@ def timer_func(func):
 
 # Get Timing Decorator
 def get_time_func(func):
-    # This function shows the execution time of
-    # the function object passed
+    """This function output the execution time of the function object passed"""
     def wrap_func(*args, **kwargs):
         t1 = time()
         func(*args, **kwargs)
@@ -43,6 +41,7 @@ def get_time_func(func):
 
 # RAM Allocation Decorator
 def ram_func(func):
+    """This function shows the CPU Peak of the function object passed"""
     def wrap_func(*args, **kwargs):
         tracemalloc.start()
         result = func(*args, **kwargs)
@@ -58,6 +57,7 @@ def ram_func(func):
 
 # Get RAM peak Decorator
 def get_ram_peak_func(func):
+    """This function output the CPU Peak of the function object passed"""
     def wrap_func(*args, **kwargs):
         tracemalloc.start()
         func(*args, **kwargs)
@@ -69,7 +69,7 @@ def get_ram_peak_func(func):
     return wrap_func
 
 
-# Functions
+# FUNCTIONS
 def get_csv_data(data_csv_path: str) -> List[Action]:
     """Function to get data from CSV file"""
 
@@ -99,7 +99,7 @@ def data_validate(action_cost: str, action_profit: str) -> bool:
     try:
         if float(action_cost) > 0 and float(action_profit) > 0:
             result = True
-    except:
+    except ValueError:
         pass
 
     return result
@@ -136,22 +136,23 @@ def display_data_report(data_csv_path: str):
             for [action_name, action_cost, action_profit] in data]
 
     actions_cost_null = [[action_name, action_cost, action_benefit_pct] for
-                         [action_name, action_cost, action_benefit_pct] in data if action_cost == 0]
+                         action_name, action_cost, action_benefit_pct in data if action_cost == 0]
 
     actions_negative_cost = [[action_name, action_cost, action_benefit_pct] for
-                             [action_name, action_cost, action_benefit_pct] in data if action_cost < 0]
+                             action_name, action_cost, action_benefit_pct in data if action_cost < 0]
 
     actions_benefit_null = [[action_name, action_cost, action_benefit_pct] for
-                            [action_name, action_cost, action_benefit_pct] in data if action_benefit_pct == 0]
+                            action_name, action_cost, action_benefit_pct in data if action_benefit_pct == 0]
 
     actions_negative_benefit = [[action_name, action_cost, action_benefit_pct] for
-                                [action_name, action_cost, action_benefit_pct] in data if action_benefit_pct < 0]
+                                action_name, action_cost, action_benefit_pct in data if action_benefit_pct < 0]
 
     data_unworkable_count = len(actions_cost_null) \
                             + len(actions_negative_cost) \
                             + len(actions_benefit_null) \
                             + len(actions_negative_benefit)
 
+    # Display
     display_message = f"Rapport d'exploration de l'ensemble des données :\n" \
                       f"Actions : {len(data)}\n" \
                       f"Actions coût nul : {len(actions_cost_null)}\n" \
@@ -175,10 +176,12 @@ def display_portfolio(portfolio):
         header_string += DISPLAY_HEADER[i].center(DISPLAY_COLUMN_WIDTH[i]) + '|'
     print(header_string)
 
+    # Content
     for action in portfolio.actions:
         action_display = display_action(action)
         print(action_display)
 
+    # Footer
     print(f'Nombre d\'actions en portefeuille : {len(portfolio.actions)}')
     print(f'Coût total du portefeuille : {round(portfolio.cost, 2)}')
     print(f'Valeur du portefeuille au bout de 2 ans :'

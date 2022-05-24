@@ -18,7 +18,7 @@ ram = {'function': get_ram_peak_func, 'title': 'RAM Performance Analysis', 'ylab
 
 def chart_performance_comparison(analysis: Dict[str, Any], algorithms: List[Callable], data_size: int = 20,
                                  data_step: int = 1):
-    """Function that return a plot with performance of the algorithms"""
+    """Function that return a comparison plot of algorithms' performance"""
 
     # Init
     data_number = list(range(5, data_size + 1, data_step))
@@ -45,47 +45,9 @@ def chart_performance_comparison(analysis: Dict[str, Any], algorithms: List[Call
     plt.show()
 
 
-def chart_performance_analysis(algorithm: Callable, data_size: int = 20,
-                               data_step: int = 1):
-    """Function that return a plot with performance of the algorithms"""
-
-    # Init
-    data_number = list(range(5, data_size + 1, data_step))
-    time_results = []
-    delta_results = []
-
-    # Iteration
-    for n in data_number:
-        time_results.append(get_time_func(algorithm)(actions=ACTIONS[:n]))
-        # delta_n is the difference in percentage for parameter_to_maximize between algorithm and dyn_algo
-        a1 = algorithm(actions=ACTIONS[:n])
-        a2 = dyn_algo(actions=ACTIONS[:n])
-        delta_n = - (a1.parameter_to_maximize /
-                     a2.parameter_to_maximize - 1) * 100
-        delta_results.append(delta_n)
-
-    # Plotting
-    fig, ax = plt.subplots()
-    ax.plot(data_number, time_results, color='green')
-    ax.set_xlabel('number of data entries (n)', fontsize=14)
-    ax.set_ylabel('time (s)', color='green', fontsize=14)
-    ax.set_ylim(ymin=0, ymax=max(time_results) if max(time_results) != 0 else None)
-    ax.legend(['time'], loc='lower center')
-
-    ax2 = ax.twinx()
-    ax2.plot(data_number, delta_results, color='red')
-    ax2.set_ylabel('delta (%)', color='red', fontsize=14)
-    ax2.legend(['delta'], loc='lower right')
-
-    # Plot Formatting
-    plt.title(f'Performance Analysis - n = {data_size} \n{algorithm.__name__}')
-    plt.grid()
-    plt.show()
-
-
 def dyn_algo_v2_step_performance_analysis(data_size: int = 1000, algo_max_step: int = 5,
                                           algo_min_step: int = 1, step: int = 1):
-    """Function that return time and delta performance for differents algo_step"""
+    """Function that return time and delta performance for different algo_steps"""
 
     # Init
     algo_steps = list(range(algo_min_step, algo_max_step + 1, step))

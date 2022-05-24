@@ -55,7 +55,6 @@ def optimised_algorithm_dynamic_v2(actions: List[Action], max_cost: int = MAXIMU
                 optimised_space[nb_actions][portfolio_funds_idx] = actual_portfolio
 
     # Result
-    best_portfolio = optimised_space[actions_count][max_cost_idx]
-    return best_portfolio
+    return optimised_space[actions_count][max_cost_idx]
 
     # Overall Complexity = O(n^2)

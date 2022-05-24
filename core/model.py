@@ -32,7 +32,7 @@ class Action:
 
     @property
     def efficiency(self) -> float:
-        """Method to get efficeny of an action"""
+        """Method to get efficiency of an action"""
         return self.performance / self.cost
 
 

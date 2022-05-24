@@ -1,8 +1,8 @@
 from core.model import Action, Portfolio
 from core.algorithms.algorithm_tools import display_portfolio, get_csv_data
 
-ACTIONS_1_CSV_PATH = 'resources/backtesing_data/dataset1_PythonP7.csv'
-ACTIONS_2_CSV_PATH = 'resources/backtesing_data/dataset2_PythonP7.csv'
+ACTIONS_1_CSV_PATH = 'resources/backtesting_data/dataset1_PythonP7.csv'
+ACTIONS_2_CSV_PATH = 'resources/backtesting_data/dataset2_PythonP7.csv'
 ACTIONS_1 = get_csv_data(ACTIONS_1_CSV_PATH)
 ACTIONS_2 = get_csv_data(ACTIONS_2_CSV_PATH)
 
