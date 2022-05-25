@@ -1,20 +1,20 @@
 # Imports
 from core.algorithms.bruteforce import bruteforce_algorithm
 from core.algorithms.optimised_algorithm_greedy import optimised_algorithm_greedy
-from core.algorithms.optimised_algorithm_dynamic import optimised_algorithm_dynamic
+from core.algorithms.optimized import optimised_algorithm_dynamic
 from core.algorithms.optimised_algorithm_dynamic_v2 import optimised_algorithm_dynamic_v2
 from core.algorithms.algorithm_tools import display_portfolio, get_csv_data
 import sys
 
 # CONSTANTS
 ACTIONS_DATA_CSV = 'resources/Actions_data/Informations_sur_les_actions.csv'
-DEFAULT_ALGORITHM = 'dyn_algo'
+DEFAULT_ALGORITHM = 'optimized'
 
 ALGORITHM_PROVIDER = {
-    'bf_algo': bruteforce_algorithm,
-    'greedy_algo': optimised_algorithm_greedy,
-    'dyn_algo': optimised_algorithm_dynamic,
-    'dyn_algo_v2': optimised_algorithm_dynamic_v2
+    'bruteforce': bruteforce_algorithm,
+    'optimized': optimised_algorithm_dynamic,
+    'dyn_algo_v2': optimised_algorithm_dynamic_v2,
+    'greedy_algo': optimised_algorithm_greedy
 }
 
 
