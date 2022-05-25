@@ -2,7 +2,7 @@
 from typing import List, Dict, Any, Callable
 from core.algorithms.bruteforce import bruteforce_algorithm as bf_algo
 from core.algorithms.optimised_algorithm_greedy import optimised_algorithm_greedy as greedy_algo
-from core.algorithms.optimised_algorithm_dynamic import optimised_algorithm_dynamic as dyn_algo
+from core.algorithms.optimized import optimised_algorithm_dynamic as dyn_algo
 from core.algorithms.optimised_algorithm_dynamic_v2 import optimised_algorithm_dynamic_v2 as dyn_algo_v2
 from core.algorithms.algorithm_tools import get_csv_data, get_time_func, get_ram_peak_func
 from core.model import Portfolio, MAXIMUM_PURCHASE_COST
