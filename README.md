@@ -1,7 +1,6 @@
 # Openclassrooms Project-P7
 
-OpenClassRooms Project-P7 est un projet Python ayant un but d'apprentissage dans le cadre de la formation OpenClassRooms Développeur d'Application Python.
-
+OpenClassRooms Project-P7 est un projet Python ayant un but d'apprentissage dans le cadre de la formation OpenClassRooms Développeur d'Application Python.  
 Thème du projet : Résolvez des problèmes en utilisant des algorithmes en Python.
 
 ## Installation
