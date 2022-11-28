@@ -95,6 +95,12 @@ Le résultat s'affichera directement sur votre console/terminal.
 python3 main.py <algorithm_name> <data_path>
 ```
 
+Liste des algorithmes développés :
+- `bruteforce`: bruteforce_algorithm
+- `optimized`: optimised_algorithm_dynamic
+- `dyn_algo_v2`: optimised_algorithm_dynamic_v2
+- `greedy_algo` optimised_algorithm_greedy
+
 
 <a id="presentation"></a>
 ### Présentation
