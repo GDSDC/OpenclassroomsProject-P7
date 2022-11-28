@@ -89,10 +89,10 @@ pip install -r requirements.txt
 
 ## Utilisation _en ligne de commande_
 
-Lancer simplement le script python **_main.py_** présent à la racine du dossier de travail en spécifiant le nom de l'algorithm (_**bruteforce**_ ou _**optimized**_) ainsi que le chemin vers les données.
+Lancer simplement le script python `main.py` présent à la racine du dossier de travail en spécifiant le nom de l'algorithm (`bruteforce` ou `optimized`) ainsi que le chemin vers les données.
 Le résultat s'affichera directement sur votre console/terminal.
 ```bash
-python3 main.py algorithm_name data_path
+python3 main.py <algorithm_name> <data_path>
 ```
 
 
