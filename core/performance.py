@@ -9,7 +9,7 @@ from core.model import Portfolio, MAXIMUM_PURCHASE_COST
 from matplotlib import pyplot as plt
 
 # CONSTANTS
-ACTIONS_DATA_CSV_PATH = 'resources/Actions_data/Performance_data/data.csv'
+ACTIONS_DATA_CSV_PATH = 'resources/actions_data/performance_data/data.csv'
 ACTIONS = get_csv_data(ACTIONS_DATA_CSV_PATH)
 # ANALYSIS
 time = {'function': get_time_func, 'title': 'Time Performance Analysis', 'ylabel': 'Time (s)'}
