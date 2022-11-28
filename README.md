@@ -41,7 +41,7 @@ Project
 ├── core
 │   ├── aglorithms : package contenant les algorithmes développés
 │   ├── backtesting_results.py
-│   ├── model.py : module définissante les dataclass Action et Portfolio
+│   ├── model.py : module définissant les dataclass Action et Portfolio
 │   ├── performance.py : module permettant de générer les analyses graphiques de résultats
 │
 ├── ressources
