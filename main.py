@@ -7,7 +7,7 @@ from core.algorithms.algorithm_tools import display_portfolio, get_csv_data
 import sys
 
 # CONSTANTS
-ACTIONS_DATA_CSV = 'resources/Actions_data/Informations_sur_les_actions.csv'
+ACTIONS_DATA_CSV = 'resources/actions_data/Informations_sur_les_actions.csv'
 DEFAULT_ALGORITHM = 'optimized'
 
 ALGORITHM_PROVIDER = {
